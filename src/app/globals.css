@@ -1,0 +1,520 @@
+@import "tailwindcss";
+
+/* ============================================================
+   BUBBLES AUTO SPA — "Foam & Light" design system
+   A foam-white canvas with deep marine-blue contrast beats.
+   Bubbles are water physics (Foam Line, beading), never clip-art.
+   Gold is reserved EXCLUSIVELY for Nasiol / 3M / 3D cert chips.
+   ============================================================ */
+
+@theme {
+  /* light canvas */
+  --color-foam: #f4f8fb;   /* page base */
+  --color-paper: #ffffff;  /* elevated cards */
+  --color-mist: #cfe3f2;   /* pale aqua fills / soft gradients */
+
+  /* deep water (dark beats) */
+  --color-ink: #0a1b2e;    /* deepest marine ink */
+  --color-marine: #0e2c4a; /* secondary deep panel */
+
+  /* brand blue spine */
+  --color-blue: #1a73d1;   /* logo automotive blue, primary action */
+  --color-sky: #5fa8e6;    /* lighter logo bubble blue, hover/glow */
+
+  /* neutrals / text */
+  --color-slate: #3d5066;  /* body text on light */
+  --color-chrome: #9fb3c7; /* captions, hairlines, foam-line stroke */
+  --color-sand: #ede7dc;   /* single warm counter-note */
+
+  /* trust */
+  --color-gold: #c8861e;   /* certification chips ONLY */
+
+  /* radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 32px;
+  --radius-pill: 999px;
+
+  /* fonts (next/font sets the -raw vars on <html>) */
+  --font-display: var(--font-display-raw), "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: var(--font-body-raw), "Hanken Grotesk", system-ui, -apple-system, sans-serif;
+}
+
+/* rgba tokens + motion easings */
+:root {
+  --glass-light-bg: rgba(255, 255, 255, 0.72);
+  --glass-light-bg-strong: rgba(255, 255, 255, 0.9);
+  --glass-light-border: rgba(159, 179, 199, 0.4);
+  --glass-light-border-hover: rgba(95, 168, 230, 0.55);
+
+  --glass-dark-bg: rgba(14, 44, 74, 0.55);
+  --glass-dark-bg-strong: rgba(10, 27, 46, 0.78);
+  --glass-dark-border: rgba(95, 168, 230, 0.14);
+  --glass-dark-border-hover: rgba(95, 168, 230, 0.4);
+
+  --hairline-col: rgba(159, 179, 199, 0.3);
+  --hairline-col-dark: rgba(95, 168, 230, 0.16);
+
+  --glow-sky: rgba(95, 168, 230, 0.18);
+  --glow-sky-soft: rgba(95, 168, 230, 0.1);
+  --glow-blue: rgba(26, 115, 209, 0.22);
+
+  --scrim-ink: rgba(10, 27, 46, 0.92);
+
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 18px 40px -28px rgba(10, 27, 46, 0.45);
+  --shadow-card-dark: 0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 24px 48px -28px rgba(0, 0, 0, 0.7);
+  --shadow-lift: 0 4px 24px rgba(95, 168, 230, 0.22);
+  --shadow-float: 0 24px 60px -32px rgba(10, 27, 46, 0.55);
+
+  --ease-water: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-sweep: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- base ---------- */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-chrome) transparent;
+}
+html,
+body {
+  max-width: 100vw;
+}
+body {
+  background: var(--color-foam);
+  color: var(--color-slate);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+::selection {
+  background: var(--color-blue);
+  color: #fff;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-chrome);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sky);
+}
+
+/* ---------- layout helpers ---------- */
+.container-site {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+.container-wide {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+.section {
+  position: relative;
+  padding-block: 5rem;
+}
+@media (min-width: 768px) {
+  .container-site,
+  .container-wide {
+    padding-inline: 2rem;
+  }
+  .section {
+    padding-block: 7rem;
+  }
+}
+@media (min-width: 1024px) {
+  .section {
+    padding-block: 8.5rem;
+  }
+}
+
+/* ---------- typography helpers ---------- */
+.overline {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-chrome);
+}
+.overline-blue {
+  color: var(--color-blue);
+}
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
+.display-italic {
+  font-style: italic;
+  font-weight: 300;
+}
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- glass surfaces ---------- */
+/* light frosted glass for the foam half of the site */
+.glass {
+  background: var(--glass-light-bg);
+  backdrop-filter: blur(12px) saturate(125%);
+  -webkit-backdrop-filter: blur(12px) saturate(125%);
+  border: 1px solid var(--glass-light-border);
+  box-shadow: var(--shadow-card);
+}
+.glass-strong {
+  background: var(--glass-light-bg-strong);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  border: 1px solid var(--glass-light-border);
+  box-shadow: var(--shadow-card);
+}
+/* dark frosted glass for the deep-water beats */
+.glass-dark {
+  background: var(--glass-dark-bg);
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  border: 1px solid var(--glass-dark-border);
+  box-shadow: var(--shadow-card-dark);
+}
+.glass-dark-strong {
+  background: var(--glass-dark-bg-strong);
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  border: 1px solid var(--glass-dark-border);
+}
+
+/* hover lift: never animate blur, only transform + shadow */
+.card-hover {
+  transition: transform 0.4s var(--ease-water),
+    box-shadow 0.4s var(--ease-water), border-color 0.4s var(--ease-water);
+  will-change: transform;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card), var(--shadow-lift);
+  border-color: var(--glass-light-border-hover);
+}
+.card-hover-dark:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-dark), var(--shadow-lift);
+  border-color: var(--glass-dark-border-hover);
+}
+
+/* ---------- hairlines ---------- */
+.hairline {
+  height: 1px;
+  width: 100%;
+  border: 0;
+  background: var(--hairline-col);
+}
+.hairline-grad {
+  height: 1px;
+  width: 100%;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-chrome) 30%,
+    var(--color-chrome) 70%,
+    transparent 100%
+  );
+  opacity: 0.6;
+}
+
+/* link underline that grows left to right */
+.link-underline {
+  background-image: linear-gradient(var(--color-sky), var(--color-sky));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1.5px;
+  transition: background-size 0.4s var(--ease-water);
+  padding-bottom: 1px;
+}
+.link-underline:hover {
+  background-size: 100% 1.5px;
+}
+
+/* ---------- bead highlight (water beading on glass) ---------- */
+.bead {
+  position: absolute;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(95, 168, 230, 0.9),
+    rgba(95, 168, 230, 0) 70%
+  );
+  pointer-events: none;
+}
+
+/* ---------- ambient orbs (dark sections only, max two) ---------- */
+.orb {
+  position: absolute;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    var(--glow-blue) 0%,
+    transparent 70%
+  );
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- duotone photo filter (defined as SVG in layout) ---------- */
+.duotone {
+  filter: url(#bubbles-duotone);
+}
+
+/* ---------- grain (hero + dark sections only) ---------- */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+  mix-blend-mode: overlay;
+}
+
+/* ---------- form fields (light) ---------- */
+.field {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  background: var(--color-paper);
+  border: 1px solid var(--glass-light-border);
+  padding: 0.75rem 1rem;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field::placeholder {
+  color: var(--color-chrome);
+}
+.field:focus {
+  outline: none;
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 3px rgba(26, 115, 209, 0.16);
+}
+select.field {
+  appearance: none;
+  cursor: pointer;
+}
+/* dark-context fields (quote form sits on a deep-water section) */
+.field-dark {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-dark-border);
+  color: #eef4fb;
+}
+.field-dark::placeholder {
+  color: rgba(159, 179, 199, 0.7);
+}
+.field-dark:focus {
+  border-color: var(--color-sky);
+  box-shadow: 0 0 0 3px rgba(95, 168, 230, 0.22);
+}
+
+/* ---------- focus ring ---------- */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-paper), 0 0 0 4px var(--color-blue);
+}
+
+/* ---------- entrance / ambient animations ---------- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeUp {
+  animation: fadeUp 0.7s var(--ease-water) both;
+}
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(3%, -4%);
+  }
+}
+.drift {
+  animation: drift 24s ease-in-out infinite;
+}
+@keyframes risebead {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-46px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* ---------- art: sheen, bob, float, shimmer ---------- */
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.bob {
+  animation: bob 5s ease-in-out infinite;
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+.floatY {
+  animation: floatY 6.5s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+/* animated chrome-water gradient text, used on a single hero word */
+.shimmer-text {
+  background: linear-gradient(
+    100deg,
+    var(--color-blue) 16%,
+    var(--color-sky) 38%,
+    #d6ecff 50%,
+    var(--color-sky) 62%,
+    var(--color-blue) 84%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 7s linear infinite;
+}
+/* hover light-sheen for framed photos (host sets group/frame) */
+.sheen {
+  position: absolute;
+  top: -45%;
+  bottom: -45%;
+  left: 0;
+  width: 38%;
+  transform: translateX(-170%) rotate(8deg);
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.42) 50%,
+    transparent 100%
+  );
+  transition: transform 0.9s var(--ease-sweep);
+  pointer-events: none;
+}
+.group\/frame:hover .sheen {
+  transform: translateX(260%) rotate(8deg);
+}
+
+/* ---------- living hero: caustics, drifting bubbles, auto-shine ---------- */
+@keyframes causticsShift {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.45; }
+  50% { transform: translate3d(-2.5%, -2%, 0) scale(1.06); opacity: 0.8; }
+  100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.45; }
+}
+.caustics {
+  background:
+    radial-gradient(42% 30% at 22% 28%, rgba(214, 236, 255, 0.5), transparent 62%),
+    radial-gradient(36% 26% at 72% 58%, rgba(95, 168, 230, 0.4), transparent 62%),
+    radial-gradient(30% 22% at 48% 82%, rgba(214, 236, 255, 0.34), transparent 62%);
+  mix-blend-mode: screen;
+  animation: causticsShift 13s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes floatBubble {
+  0% { transform: translateY(10px) scale(0.9); opacity: 0; }
+  18% { opacity: 0.7; }
+  82% { opacity: 0.7; }
+  100% { transform: translateY(-38px) scale(1.05); opacity: 0; }
+}
+.float-bubble {
+  animation: floatBubble 9s ease-in-out infinite;
+}
+@keyframes sheenAuto {
+  0%, 68% { transform: translateX(-175%) rotate(8deg); }
+  84%, 100% { transform: translateX(265%) rotate(8deg); }
+}
+.sheen-auto {
+  position: absolute;
+  top: -45%;
+  bottom: -45%;
+  left: 0;
+  width: 38%;
+  background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+  transform: translateX(-175%) rotate(8deg);
+  animation: sheenAuto 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ---------- liquid-fill buttons ---------- */
+.liquid {
+  position: relative;
+  overflow: hidden;
+}
+.liquid::before {
+  content: "";
+  position: absolute;
+  left: -12%;
+  right: -12%;
+  bottom: -24%;
+  height: 0;
+  border-radius: 999px;
+  background: radial-gradient(120% 100% at 50% 100%, var(--color-sky) 0%, rgba(95, 168, 230, 0) 78%);
+  transition: height 0.5s var(--ease-water);
+  pointer-events: none;
+  z-index: 0;
+}
+.liquid:hover::before {
+  height: 240%;
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

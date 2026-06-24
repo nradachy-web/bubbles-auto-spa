@@ -1,0 +1,7 @@
+_plan
+out
+node_modules
+.next
+.playwright-mcp
+*.tsbuildinfo
+.DS_Store
