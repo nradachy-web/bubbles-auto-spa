@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import StickyCallBar from "@/components/layout/StickyCallBar";
+import ScrollProgress from "@/components/fx/ScrollProgress";
 import { BRAND, SEO, SITE_URL, SERVICES, BUSINESS_DESCRIPTION } from "@/lib/constants";
 
 const display = Fraunces({
@@ -110,6 +111,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
+        <ScrollProgress />
         <Navbar />
         <main>{children}</main>
         <Footer />

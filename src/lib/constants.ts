@@ -562,15 +562,19 @@ export const GALLERY = {
     caption: "Acura MDX interior, before and after a full interior detail.",
   },
   items: [
+    { image: "/gallery/g11.jpg", title: "Porsche 911 GT3", caption: "Exterior detail in the studio." },
+    { image: "/gallery/g12.jpg", title: "GT3 foam bath", caption: "Hand wash with a full foam treatment." },
+    { image: "/gallery/g13.jpg", title: "Boat gel coat", caption: "Oxidation removal, before and after." },
+    { image: "/gallery/g04.jpg", title: "Jeep Grand Wagoneer", caption: "Water beading on a fresh finish." },
+    { image: "/gallery/g14.jpg", title: "Mobile detailing", caption: "Our rig comes to you across Macomb County." },
     { image: "/gallery/g01.jpg", title: "Chevy Tahoe Z71", caption: "Exterior detail, glossy finish." },
+    { image: "/gallery/g05.jpg", title: "G-Wagon interior", caption: "Leather cleaned and conditioned." },
     { image: "/gallery/g02.jpg", title: "Genesis GV70", caption: "Exterior detail." },
     { image: "/gallery/g03.jpg", title: "Mercedes-AMG C43", caption: "Exterior detail." },
-    { image: "/gallery/g04.jpg", title: "Jeep Grand Wagoneer", caption: "Exterior detail, water beading on a fresh finish." },
-    { image: "/gallery/g05.jpg", title: "G-Wagon interior", caption: "Interior detail, leather cleaned and conditioned." },
     { image: "/gallery/g06.jpg", title: "Genesis interior", caption: "Interior detail." },
+    { image: "/gallery/g15.jpg", title: "Alfa Romeo Stelvio", caption: "Exterior detail." },
     { image: "/gallery/g07.jpg", title: "Tesla interior", caption: "Interior detail." },
     { image: "/gallery/g08.jpg", title: "Travel trailer RV", caption: "Marine and RV detailing." },
-    { image: "/gallery/g09.jpg", title: "RV front cap", caption: "Gel coat polished to a deep gloss." },
     { image: "/gallery/g10.jpg", title: "Cabin cruiser", caption: "Marine detailing, gel coat and hull." },
   ],
 } as const;
@@ -657,6 +661,98 @@ export const SEO: Record<string, { title: string; description: string }> = {
       "Book detailing at our St. Clair Shores shop or mobile across Macomb County. 23525 Little Mack Ave. Call or text (586) 217-0123 for a free quote.",
   },
 };
+
+// ---------------- LOCAL SEO: CITY PAGES ----------------
+export interface City {
+  slug: string;
+  name: string;
+  blurb: string; // short line for links/cards
+  intro: string[]; // unique local copy
+  nearby: string[]; // slugs
+}
+
+export const CITIES: City[] = [
+  {
+    slug: "st-clair-shores",
+    name: "St. Clair Shores",
+    blurb: "Our home base on Little Mack",
+    intro: [
+      "Bubbles Auto Spa is based right here in St. Clair Shores, at 23525 Little Mack Ave, a few minutes from the Nautical Mile and Lake St. Clair. This is our neighborhood, and we treat every car, truck, and boat in town like it is our own.",
+      "Drop your vehicle off at the shop or have our mobile van pull up to your driveway anywhere in the city. With Lake St. Clair around the corner, we do a lot of boat and gel coat work here, alongside full interior and exterior detailing, paint correction, and certified ceramic coating.",
+    ],
+    nearby: ["roseville", "harrison-township", "warren"],
+  },
+  {
+    slug: "sterling-heights",
+    name: "Sterling Heights",
+    blurb: "Shop or mobile across the Hall Road area",
+    intro: [
+      "Sterling Heights drivers do not have to settle for a drive-through wash. Bubbles Auto Spa brings shop-quality detailing to the Hall Road and M-59 corridor, from the neighborhoods off Dodge Park to the lots around Lakeside, with our mobile van or a drop-off at our St. Clair Shores studio.",
+      "Whether it is a daily driver caked in Michigan road salt or a weekend car you want corrected and ceramic coated, we size and quote every job for your vehicle. Certified in Nasiol, 3M, and 3D.",
+    ],
+    nearby: ["shelby-township", "clinton-township", "warren"],
+  },
+  {
+    slug: "warren",
+    name: "Warren",
+    blurb: "Detailing for Macomb's biggest city",
+    intro: [
+      "Warren is the largest city in Macomb County, and there are a lot of cars between Van Dyke, Mound, and the GM Tech Center that deserve better than a tunnel wash. Bubbles Auto Spa comes to you anywhere in Warren, or you can drop off at our St. Clair Shores shop.",
+      "From a deep interior reset on a work truck to multi-stage paint correction and a certified ceramic coating, we do the real work by hand and quote it per vehicle. No upsell games.",
+    ],
+    nearby: ["roseville", "sterling-heights", "st-clair-shores"],
+  },
+  {
+    slug: "clinton-township",
+    name: "Clinton Township",
+    blurb: "Mobile detailing off Gratiot and Hall Road",
+    intro: [
+      "Clinton Township sits right in the middle of everything we serve, from Gratiot to the Hall Road shopping corridor near Partridge Creek. Bubbles Auto Spa details cars, trucks, SUVs, RVs, and boats here with both mobile service and shop drop-off.",
+      "We handle exterior and interior detailing, paint correction, and certified ceramic coating, and we are happy to come to your home or office and do it in your driveway.",
+    ],
+    nearby: ["harrison-township", "sterling-heights", "roseville"],
+  },
+  {
+    slug: "shelby-township",
+    name: "Shelby Township",
+    blurb: "Certified detailing up the Van Dyke corridor",
+    intro: [
+      "Up the M-53 and Van Dyke corridor near Stony Creek, Shelby Township is full of late-model vehicles, trucks, and RVs that get a workout. Bubbles Auto Spa brings certified detailing to your driveway, or you can drop off at our St. Clair Shores studio.",
+      "Paint correction to cut the swirls, a ceramic coating to fight Michigan salt and sun, or a full interior deep clean, we build the right package for your vehicle and quote it honestly.",
+    ],
+    nearby: ["sterling-heights", "clinton-township", "chesterfield"],
+  },
+  {
+    slug: "roseville",
+    name: "Roseville",
+    blurb: "Quick to reach off Gratiot and 12 Mile",
+    intro: [
+      "Roseville is a short hop from our shop, right off Gratiot near Macomb Mall and 12 Mile. That makes it one of the easiest cities for us to serve, by mobile van at your place or a fast drop-off at our St. Clair Shores studio.",
+      "We get the salt and grime off the right way with a real hand wash and clay bar, then correct and protect the paint with certified Nasiol, 3M, and 3D products. Cars, trucks, RVs, and boats welcome.",
+    ],
+    nearby: ["st-clair-shores", "warren", "clinton-township"],
+  },
+  {
+    slug: "harrison-township",
+    name: "Harrison Township",
+    blurb: "Boat and car detailing on Lake St. Clair",
+    intro: [
+      "Harrison Township lives on the water, and that is right in our wheelhouse. With the marinas and canals off Lake St. Clair, Bubbles Auto Spa does a lot of boat and gel coat work here, from oxidation removal to wax and protective sealants, plus full car and truck detailing.",
+      "We can meet your boat at the marina or your car in the driveway. Gel coat polishing, ceramic coating, interior deep cleans, and paint correction, all quoted per vehicle or vessel.",
+    ],
+    nearby: ["st-clair-shores", "chesterfield", "clinton-township"],
+  },
+  {
+    slug: "chesterfield",
+    name: "Chesterfield",
+    blurb: "Car, RV, and marine detailing near Anchor Bay",
+    intro: [
+      "Up by Anchor Bay and the 23 Mile area, Chesterfield is boat and RV country, and those take a beating from sun and a long Michigan winter in storage. Bubbles Auto Spa handles gel coat restoration, RV exteriors, and full auto detailing here with mobile service or shop drop-off.",
+      "Bring us the boat before launch, the RV before a trip, or the daily driver any time. Certified in Nasiol, 3M, and 3D, and quoted per vehicle.",
+    ],
+    nearby: ["harrison-township", "shelby-township", "clinton-township"],
+  },
+];
 
 export const BUSINESS_DESCRIPTION =
   "Bubbles Auto Spa, LLC is an auto detailing company based in St. Clair Shores, Michigan, serving Macomb County and the surrounding metro Detroit area. Operating from a shop at 23525 Little Mack Ave, the business also offers mobile detailing that comes to the customer. Services include exterior detailing, interior detailing, paint correction, ceramic coating, and marine and RV detailing, with every job quoted per vehicle. The team is certified through Nasiol, 3M, and 3D.";

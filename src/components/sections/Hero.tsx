@@ -100,8 +100,8 @@ export default function Hero() {
               <div className="relative">
                 <PhotoFrame
                   src="/images/hero.jpg"
-                  alt="Freshly detailed Jeep Grand Wagoneer with water beading on a glossy finish, detailed by Bubbles Auto Spa in St. Clair Shores, MI"
-                  ratio="aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3]"
+                  alt="A Porsche 911 GT3 covered in foam during a hand wash at the Bubbles Auto Spa studio in St. Clair Shores, MI"
+                  ratio="aspect-[4/3] sm:aspect-[16/11] lg:aspect-[5/4]"
                   tone="full"
                   priority
                   sheen={false}

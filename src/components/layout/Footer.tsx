@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Phone, MapPin, Clock, AtSign } from "lucide-react";
-import { BRAND, NAV_LINKS } from "@/lib/constants";
+import { BRAND, NAV_LINKS, CITIES } from "@/lib/constants";
 import { asset } from "@/lib/asset";
 import FoamLine from "@/components/fx/FoamLine";
 
@@ -72,20 +72,21 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* service area */}
+          {/* areas we serve */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-white">Service Area</h4>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-white">Areas We Serve</h4>
             <p className="mb-3 text-sm text-[#9fb3c7]">
               Based in {BRAND.address.city}, serving {BRAND.county}.
             </p>
             <div className="flex flex-wrap gap-2">
-              {BRAND.serviceArea.map((city) => (
-                <span
-                  key={city}
-                  className="rounded-pill border border-[var(--glass-dark-border)] px-3 py-1 text-xs text-[#9fb3c7]"
+              {CITIES.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/auto-detailing/${c.slug}`}
+                  className="rounded-pill border border-[var(--glass-dark-border)] px-3 py-1 text-xs text-[#9fb3c7] transition-colors hover:border-sky hover:text-sky"
                 >
-                  {city}
-                </span>
+                  {c.name}
+                </Link>
               ))}
             </div>
           </div>

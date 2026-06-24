@@ -36,9 +36,10 @@ export default function MobileVsShop() {
             </a>
             <div className="mt-7">
               <PhotoFrame
-                src="/images/shop-car.jpg"
-                alt="A finished, glossy sedan after a full detail at Bubbles Auto Spa"
+                src="/images/shop.jpg"
+                alt="A Porsche 911 GT3 in the hex-lit Bubbles Auto Spa studio in St. Clair Shores"
                 ratio="aspect-[16/10]"
+                tone="full"
               />
             </div>
           </Reveal>
@@ -72,8 +73,8 @@ export default function MobileVsShop() {
               </a>
               <div className="mt-7">
                 <PhotoFrame
-                  src="/images/mobile-rig.jpg"
-                  alt="The Bubbles Auto Spa mobile detailing rig that comes to your location"
+                  src="/images/van.jpg"
+                  alt="The Bubbles Auto Spa branded mobile detailing van that comes to your location"
                   ratio="aspect-[16/10]"
                   tone="full"
                 />
