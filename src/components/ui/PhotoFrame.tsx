@@ -1,11 +1,14 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { asset } from "@/lib/asset";
 
 /**
- * Wet-glass PhotoFrame. The system that makes ~70 real phone photos read as one
- * graded editorial set: a rounded frosted frame, a faint cool grade, a soft inner
- * vignette, and a top sheen. tone="full" keeps true before/after shots untouched.
- * Presentational only (no hooks) so it renders inside server components too.
+ * Wet-glass PhotoFrame. Makes ~70 real phone photos read as one graded set:
+ * rounded frosted frame, faint cool grade, inner vignette, top sheen, optional
+ * hover light-sheen, living-water caustics, periodic shine, and a cinematic
+ * left-to-right clip-wipe reveal on scroll. tone="full" keeps before/after true.
  */
 export default function PhotoFrame({
   src,
@@ -20,6 +23,7 @@ export default function PhotoFrame({
   sheen = true,
   caustics = false,
   autoSheen = false,
+  reveal = false,
 }: {
   src: string;
   alt: string;
@@ -33,15 +37,23 @@ export default function PhotoFrame({
   sheen?: boolean;
   caustics?: boolean;
   autoSheen?: boolean;
+  reveal?: boolean;
 }) {
+  const reduce = useReducedMotion();
+  const animate = reveal && !reduce;
+
   return (
-    <div
+    <motion.div
       className={cn(
         "group/frame relative overflow-hidden rounded-2xl bg-mist/40",
         "ring-1 ring-[var(--glass-light-border)]",
         "shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_24px_48px_-32px_rgba(10,27,46,0.5)]",
         className
       )}
+      initial={animate ? { clipPath: "inset(0 100% 0 0)" } : false}
+      whileInView={animate ? { clipPath: "inset(0 0% 0 0)" } : undefined}
+      viewport={animate ? { once: true, margin: "-10% 0px" } : undefined}
+      transition={animate ? { duration: 0.95, ease: [0.22, 1, 0.36, 1] } : undefined}
     >
       <div className={cn("relative w-full", fill ? "h-full" : ratio)}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -59,8 +71,7 @@ export default function PhotoFrame({
             aria-hidden
             className="pointer-events-none absolute inset-0"
             style={{
-              background:
-                "linear-gradient(180deg, rgba(95,168,230,0.05) 0%, rgba(14,44,74,0.06) 100%)",
+              background: "linear-gradient(180deg, rgba(95,168,230,0.05) 0%, rgba(14,44,74,0.06) 100%)",
               mixBlendMode: "multiply",
             }}
           />
@@ -70,14 +81,11 @@ export default function PhotoFrame({
           <span
             aria-hidden
             className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(125% 85% at 50% 0%, transparent 52%, rgba(10,27,46,0.22) 100%)",
-            }}
+            style={{ background: "radial-gradient(125% 85% at 50% 0%, transparent 52%, rgba(10,27,46,0.22) 100%)" }}
           />
         )}
 
-        {/* living-water light caustics drifting over the surface */}
+        {/* living-water light caustics */}
         {caustics && <span aria-hidden className="caustics pointer-events-none absolute inset-0" />}
 
         {/* periodic wax-shine sweep */}
@@ -90,12 +98,9 @@ export default function PhotoFrame({
         <span
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 h-px"
-          style={{
-            background:
-              "linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent)",
-          }}
+          style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent)" }}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }

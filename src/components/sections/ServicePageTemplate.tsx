@@ -76,6 +76,8 @@ export default function ServicePageTemplate({ id }: { id: string }) {
                 ratio="aspect-[4/3]"
                 tone="full"
                 priority
+                reveal
+                autoSheen
                 className="shadow-[0_40px_90px_-50px_rgba(10,27,46,0.65)]"
               />
             </Reveal>

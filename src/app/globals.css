@@ -485,6 +485,32 @@ select.field {
   pointer-events: none;
 }
 
+/* ---------- marquee ribbon ---------- */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: inline-flex;
+  width: max-content;
+  animation: marquee 34s linear infinite;
+}
+.marquee-host:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ---------- oversized editorial ghost word ---------- */
+.ghost-word {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
 /* ---------- liquid-fill buttons ---------- */
 .liquid {
   position: relative;

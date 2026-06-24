@@ -13,6 +13,9 @@ export default function WhyChooseUs() {
   return (
     <section className="section relative overflow-hidden bg-ink grain">
       <BeadField />
+      <span aria-hidden className="ghost-word absolute bottom-[-2.5vw] left-[-1vw] z-0 text-[20vw] text-white/[0.035]">
+        Shine
+      </span>
       <div className="container-site relative z-10">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
           {/* left: heading + framed beading photo */}
@@ -24,6 +27,7 @@ export default function WhyChooseUs() {
                 alt="Water beading on a freshly ceramic-coated finish, detailed by Bubbles Auto Spa"
                 ratio="aspect-[5/4]"
                 tone="full"
+                reveal
               />
             </Reveal>
           </div>

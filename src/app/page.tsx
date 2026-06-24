@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import Hero from "@/components/sections/Hero";
+import ServicesMarquee from "@/components/sections/ServicesMarquee";
 import Certifications from "@/components/sections/Certifications";
 import ServicesPreview from "@/components/sections/ServicesPreview";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
@@ -39,6 +40,7 @@ export default function HomePage() {
       />
 
       <Hero />
+      <ServicesMarquee />
       <Certifications />
       <ServicesPreview />
       <WhyChooseUs />

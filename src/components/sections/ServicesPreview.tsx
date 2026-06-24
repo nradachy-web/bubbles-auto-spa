@@ -1,11 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { CarFront, Armchair, Sparkles, ShieldCheck, Ship, ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { SERVICES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import PhotoFrame from "@/components/ui/PhotoFrame";
+import Tilt from "@/components/ui/Tilt";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal, { RevealGroup } from "@/components/ui/Reveal";
 
@@ -31,7 +31,7 @@ export default function ServicesPreview() {
             const featured = service.featured === true;
             return (
               <Reveal key={service.id} className={cn(featured && "sm:col-span-2 lg:col-span-1")}>
-                <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300, damping: 24 }} className="h-full">
+                <Tilt className="h-full">
                   <Link
                     href={service.href}
                     className={cn(
@@ -70,9 +70,7 @@ export default function ServicesPreview() {
                       </ul>
 
                       <div className="mt-5 flex items-center justify-between border-t border-[var(--hairline-col)] pt-4">
-                        <span className="text-[0.78rem] uppercase tracking-[0.1em] text-chrome">
-                          {service.priceFraming}
-                        </span>
+                        <span className="text-[0.78rem] uppercase tracking-[0.1em] text-chrome">{service.priceFraming}</span>
                         <span className="inline-flex items-center gap-1 text-sm font-semibold text-blue transition-transform group-hover/card:translate-x-0.5">
                           View
                           <ArrowRight className="h-4 w-4" aria-hidden />
@@ -80,7 +78,7 @@ export default function ServicesPreview() {
                       </div>
                     </div>
                   </Link>
-                </motion.div>
+                </Tilt>
               </Reveal>
             );
           })}
