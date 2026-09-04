@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
 
 import Hero from "@/components/sections/Hero";
-import ServicesMarquee from "@/components/sections/ServicesMarquee";
-import Certifications from "@/components/sections/Certifications";
-import ServicesPreview from "@/components/sections/ServicesPreview";
-import WhyChooseUs from "@/components/sections/WhyChooseUs";
-import ProcessTrack from "@/components/sections/ProcessTrack";
-import GalleryShowcase from "@/components/sections/GalleryShowcase";
-import MobileVsShop from "@/components/sections/MobileVsShop";
+import TwoWays from "@/components/sections/TwoWays";
+import ServicesIndex from "@/components/sections/ServicesIndex";
+import Work from "@/components/sections/Work";
+import MarineBand from "@/components/sections/MarineBand";
+import Process from "@/components/sections/Process";
+import SpecSheet from "@/components/sections/SpecSheet";
 import QuoteSection from "@/components/sections/QuoteSection";
 import FAQ from "@/components/sections/FAQ";
 import CTABanner from "@/components/sections/CTABanner";
-import FoamWipe from "@/components/fx/FoamWipe";
 
 import { SEO, FAQ as FAQ_ITEMS } from "@/lib/constants";
 
@@ -34,21 +32,14 @@ const faqJsonLd = {
 export default function HomePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <Hero />
-      <ServicesMarquee />
-      <Certifications />
-      <ServicesPreview />
-      <WhyChooseUs />
-      <ProcessTrack />
-      <FoamWipe className="container-wide" />
-      <GalleryShowcase limit={6} withCta />
-      <FoamWipe className="container-wide" />
-      <MobileVsShop />
+      <TwoWays />
+      <ServicesIndex />
+      <Work />
+      <MarineBand />
+      <Process />
+      <SpecSheet />
       <QuoteSection />
       <FAQ />
       <CTABanner />

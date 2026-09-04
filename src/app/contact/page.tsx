@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import SectionHeading from "@/components/ui/SectionHeading";
 import QuoteSection from "@/components/sections/QuoteSection";
-import Reveal from "@/components/ui/Reveal";
-import FoamLine from "@/components/fx/FoamLine";
-import { BRAND, SEO } from "@/lib/constants";
+import CTABanner from "@/components/sections/CTABanner";
+import { SEO } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: SEO.contact.title,
@@ -12,32 +12,26 @@ export const metadata: Metadata = {
   twitter: { title: SEO.contact.title, description: SEO.contact.description },
 };
 
+// Page copy that lives only here. Move to constants.ts (CONTACT_PAGE) if it is reused.
+const CONTACT_PAGE = {
+  heading: "Get a custom quote",
+  lede: "Tell us about the vehicle and what you want done. We reply with a price and a time.",
+} as const;
+
+/** Contact. Black intro, then the quote form with the shop facts beside it. */
 export default function ContactPage() {
   return (
-    <main className="bg-foam">
-      {/* light header so the nav reads cleanly at the top */}
-      <section className="relative grain pt-32 pb-10">
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{ background: "radial-gradient(110% 60% at 80% 0%, rgba(207,227,242,0.6) 0%, rgba(244,248,251,0) 60%)" }}
-        />
-        <div className="container-site relative z-10 max-w-3xl">
-          <Reveal>
-            <span className="overline overline-blue">Book your detail</span>
-            <h1 className="mt-4 font-display font-light leading-[1.05] tracking-[-0.02em] text-ink text-[clamp(2.2rem,4.6vw,3.4rem)]">
-              Get a free, custom quote
-            </h1>
-            <p className="mt-5 text-[1.075rem] leading-relaxed text-slate">
-              Tell us about your vehicle and what it needs. We will follow up from {BRAND.phoneDisplay} to
-              confirm pricing and a time, at our St. Clair Shores shop or mobile to your door.
-            </p>
-          </Reveal>
+    <>
+      {/* intro. Nav is fixed and transparent at the top, so the first section clears it. */}
+      <section className="on-black section pt-[calc(var(--nav-h)+40px)]!" aria-labelledby="contact-title">
+        <div className="container">
+          <SectionHeading as="h1" title={<span id="contact-title">{CONTACT_PAGE.heading}</span>} lede={CONTACT_PAGE.lede} />
         </div>
-        <div className="container-site relative z-10 mt-8"><FoamLine /></div>
       </section>
 
       <QuoteSection />
-    </main>
+
+      <CTABanner />
+    </>
   );
 }

@@ -3,7 +3,7 @@ import { SITE_URL, CITIES } from "@/lib/constants";
 
 export const dynamic = "force-static";
 
-const LAST_MODIFIED = "2026-06-24";
+const LAST_MODIFIED = "2026-09-04";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes: { path: string; priority: number }[] = [

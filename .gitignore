@@ -1,6 +1,10 @@
 /node_modules
-/.next/
-/out/
+/node_modules.nosync
+/.next
+/.next.nosync
+/out
+/out.nosync
+*.nosync
 /build
 *.pem
 .env*

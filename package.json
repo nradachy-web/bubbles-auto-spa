@@ -3,15 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "ulimit -u 1200; next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build:local": "next build && if [ -d out ] && [ ! -L out ]; then rm -rf out.nosync && mv out out.nosync && ln -s out.nosync out; fi"
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "framer-motion": "^12.38.0",
-    "lucide-react": "^1.0.1",
     "next": "16.2.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",

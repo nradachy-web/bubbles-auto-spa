@@ -1,5 +1,5 @@
 // ============================================================
-// Bubbles Auto Spa, LLC — site data (single source of truth for copy)
+// Bubbles Auto Spa, LLC. Site data (single source of truth for copy)
 // St. Clair Shores, Michigan. Shop + mobile auto detailing.
 // Rules baked in: no fabricated reviews/prices/years, no em dashes.
 // ============================================================
@@ -46,17 +46,17 @@ export const BRAND = {
 } as const;
 
 export const CTA = {
-  primary: "Get a Custom Quote",
-  hero: "Get a Custom Quote",
-  heroSecondary: "See the Work",
+  primary: "Get a custom quote",
+  hero: "Get a custom quote",
+  heroSecondary: "See the work",
   secondary: "Call (586) 217-0123",
 } as const;
 
 export const NAV_LINKS = [
   { href: "/exterior-detailing", label: "Exterior" },
   { href: "/interior-detailing", label: "Interior" },
-  { href: "/paint-correction", label: "Paint Correction" },
-  { href: "/ceramic-coating", label: "Ceramic Coating" },
+  { href: "/paint-correction", label: "Paint correction" },
+  { href: "/ceramic-coating", label: "Ceramic coating" },
   { href: "/marine-rv-detailing", label: "Marine & RV" },
   { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
@@ -64,18 +64,16 @@ export const NAV_LINKS = [
 
 // ---------------- HERO ----------------
 export const HERO = {
-  eyebrow: "St. Clair Shores, Michigan · Shop or Mobile",
-  // headline renders in Fraunces; the middle word is set in soft italic
-  headline: { lead: "A ", italic: "spa", rest: " day for the thing you drive." },
-  sub: "Drop your vehicle off at our St. Clair Shores shop on Little Mack, or let us come to you. Interior and exterior detailing, paint correction, ceramic coating, and marine and RV work, all with certified products and the kind of attention most washes skip.",
-  trust: "Certified Nasiol, 3M and 3D · Cars, trucks, RVs and boats",
+  headline: "Auto detailing under our lights, or in your driveway.",
+  sub: "Bubbles Auto Spa is a certified detailing shop on Little Mack in St. Clair Shores, with a mobile rig that covers Macomb County. Interiors, exteriors, paint correction, ceramic coating, boats and RVs.",
+  trust: "Certified in Nasiol, 3M and 3D products. Cars, trucks, SUVs, motorcycles, boats and RVs, quoted per vehicle.",
 } as const;
 
 // ---------------- STATS / quick facts ----------------
 export const STATS = [
   { value: "2 Ways", label: "Drop off at the shop or we come to you" },
   { value: "Macomb County", label: "Served from our St. Clair Shores base" },
-  { value: "Nasiol · 3M · 3D", label: "Certified coating and care products" },
+  { value: "Nasiol, 3M, 3D", label: "Certified coating and care products" },
   { value: "Cars to Boats", label: "Cars, trucks, RVs, and marine" },
 ] as const;
 
@@ -104,7 +102,7 @@ export const SERVICES: Service[] = [
   {
     id: "exterior",
     href: "/exterior-detailing",
-    name: "Exterior Detailing",
+    name: "Exterior detailing",
     icon: "CarFront",
     oneLine: "A real hand wash and clay bar decontamination that pulls salt, tar, and brake dust off your paint.",
     features: [
@@ -114,13 +112,13 @@ export const SERVICES: Service[] = [
       "Headlight restoration and trim reconditioning",
     ],
     priceFraming: "Custom quote per vehicle",
-    cta: "View Exterior Detailing",
-    image: "/services/exterior.jpg",
+    cta: "See exterior detailing",
+    image: "/photos/amg-front.webp",
   },
   {
     id: "interior",
     href: "/interior-detailing",
-    name: "Interior Detailing",
+    name: "Interior detailing",
     icon: "Armchair",
     oneLine: "A full interior reset: vacuumed, shampooed, conditioned, and deodorized from the headliner to the trunk.",
     features: [
@@ -130,13 +128,13 @@ export const SERVICES: Service[] = [
       "Pet hair removal and odor elimination",
     ],
     priceFraming: "Custom quote per vehicle",
-    cta: "View Interior Detailing",
-    image: "/services/interior.jpg",
+    cta: "See interior detailing",
+    image: "/photos/gwagon-dash.webp",
   },
   {
     id: "paint-correction",
     href: "/paint-correction",
-    name: "Paint Correction",
+    name: "Paint correction",
     icon: "Sparkles",
     oneLine: "Machine polishing that removes swirls, scratches, and haze to bring back true gloss and depth.",
     features: [
@@ -146,13 +144,13 @@ export const SERVICES: Service[] = [
       "The right prep before a ceramic coating",
     ],
     priceFraming: "Custom quote per vehicle",
-    cta: "View Paint Correction",
-    image: "/services/paint-correction.jpg",
+    cta: "See paint correction",
+    image: "/photos/g90-front.webp",
   },
   {
     id: "ceramic-coating",
     href: "/ceramic-coating",
-    name: "Ceramic Coating",
+    name: "Ceramic coating",
     icon: "ShieldCheck",
     oneLine: "A bonded ceramic layer that locks in gloss and shrugs off Michigan salt, sun, and grime for years.",
     features: [
@@ -162,14 +160,14 @@ export const SERVICES: Service[] = [
       "UV and contaminant protection",
     ],
     priceFraming: "Custom quote per vehicle",
-    cta: "View Ceramic Coating",
-    image: "/services/ceramic-coating.jpg",
+    cta: "See ceramic coating",
+    image: "/photos/gwagon.webp",
     featured: true,
   },
   {
     id: "marine-rv",
     href: "/marine-rv-detailing",
-    name: "Marine & RV Detailing",
+    name: "Marine & RV detailing",
     icon: "Ship",
     oneLine: "Boats and RVs get gel coat polishing, oxidation removal, and protective sealants built for Michigan water.",
     features: [
@@ -179,18 +177,18 @@ export const SERVICES: Service[] = [
       "Protective sealants for season and storage",
     ],
     priceFraming: "Custom quote per vehicle",
-    cta: "View Marine & RV",
-    image: "/services/marine-rv.jpg",
+    cta: "See marine & RV",
+    image: "/photos/boat-hull.webp",
   },
 ];
 
 // Quote-form service options (ids match SERVICES)
 export const SERVICE_OPTIONS = [
-  { id: "exterior", label: "Exterior Detailing" },
-  { id: "interior", label: "Interior Detailing" },
-  { id: "paint-correction", label: "Paint Correction" },
-  { id: "ceramic-coating", label: "Ceramic Coating" },
-  { id: "marine-rv", label: "Marine & RV Detailing" },
+  { id: "exterior", label: "Exterior detailing" },
+  { id: "interior", label: "Interior detailing" },
+  { id: "paint-correction", label: "Paint correction" },
+  { id: "ceramic-coating", label: "Ceramic coating" },
+  { id: "marine-rv", label: "Marine & RV detailing" },
 ] as const;
 
 // Quote-form vehicle types (tactile picker)
@@ -271,8 +269,8 @@ export const PROCESS = {
 
 // ---------------- FINAL CTA ----------------
 export const FINAL_CTA = {
-  heading: "Ready to get your vehicle detailed?",
-  sub: "Call (586) 217-0123 or build your quote online. Shop drop-off in St. Clair Shores, or mobile service to your door across Macomb County.",
+  heading: "Ready when you are.",
+  sub: "Call or text (586) 217-0123, or send a quote request and we will get back to you with a price and a time. Drop off in St. Clair Shores, or we come to you.",
 } as const;
 
 // ---------------- FAQ (home) ----------------
@@ -327,9 +325,9 @@ export interface ServiceDetail {
 export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
   exterior: {
     id: "exterior",
-    name: "Exterior Detailing",
+    name: "Exterior detailing",
     href: "/exterior-detailing",
-    image: "/services/exterior.jpg",
+    image: "/photos/amg-front.webp",
     icon: "CarFront",
     oneLine: "A full hand-wash and decontamination service that pulls road tar, brake dust, and salt off your paint and leaves the whole exterior clean, protected, and sharp.",
     heroSubtitle: "Hand wash, clay bar decontamination, and full exterior cleanup at our St. Clair Shores shop, or at your driveway anywhere in Macomb County.",
@@ -366,9 +364,9 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
   },
   interior: {
     id: "interior",
-    name: "Interior Detailing",
+    name: "Interior detailing",
     href: "/interior-detailing",
-    image: "/services/interior.jpg",
+    image: "/photos/gwagon-dash.webp",
     icon: "Armchair",
     oneLine: "A complete interior reset: vacuumed, shampooed, deep-cleaned, conditioned, and deodorized from the headliner to the trunk.",
     heroSubtitle: "Carpets shampooed, upholstery and leather brought back, pet hair pulled out, and odors gone. At our St. Clair Shores shop or mobile to your driveway anywhere in Macomb County.",
@@ -407,9 +405,9 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
   },
   "paint-correction": {
     id: "paint-correction",
-    name: "Paint Correction",
+    name: "Paint correction",
     href: "/paint-correction",
-    image: "/services/paint-correction.jpg",
+    image: "/photos/g90-front.webp",
     icon: "Sparkles",
     oneLine: "Machine polishing that removes swirl marks, scratches, oxidation, and haze from your clear coat to bring back true gloss and depth.",
     heroSubtitle: "Swirl marks, light scratches, oxidation, and haze cut out of the clear coat with a careful machine polish. One-step and multi-step correction at our St. Clair Shores shop or at your driveway across Macomb County.",
@@ -446,15 +444,15 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       "Local to the St. Clair Shores area and built around how Michigan weather, salt, and sun actually wear on paint",
     ],
     tiers: [
-      { name: "One-Step Correction", body: "A single machine polishing pass that removes lighter swirl marks, oxidation, and haze. Best for newer vehicles or well-kept paint that needs its gloss and clarity brought back without heavy defect removal." },
-      { name: "Multi-Step Correction", body: "Compounding to cut heavier swirls, deeper scratches, and faded oxidation, followed by polishing to refine the finish. Best for older, neglected, or heavily marred paint that needs more than a single pass." },
+      { name: "One-step correction", body: "A single machine polishing pass that removes lighter swirl marks, oxidation, and haze. Best for newer vehicles or well-kept paint that needs its gloss and clarity brought back without heavy defect removal." },
+      { name: "Multi-step correction", body: "Compounding to cut heavier swirls, deeper scratches, and faded oxidation, followed by polishing to refine the finish. Best for older, neglected, or heavily marred paint that needs more than a single pass." },
     ],
   },
   "ceramic-coating": {
     id: "ceramic-coating",
-    name: "Ceramic Coating",
+    name: "Ceramic coating",
     href: "/ceramic-coating",
-    image: "/services/ceramic-coating.jpg",
+    image: "/photos/gwagon.webp",
     icon: "ShieldCheck",
     oneLine: "A liquid polymer that bonds to your clear coat for years of gloss, easy cleaning, and protection from Michigan road salt, UV, and grime.",
     heroSubtitle: "A bonded ceramic layer that locks in gloss and shrugs off salt, sun, and dirt. Applied at our St. Clair Shores shop or at your driveway by certified Nasiol, 3M, and 3D installers.",
@@ -490,16 +488,16 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       "Local to St. Clair Shores and built for Macomb County roads, salt, and weather",
     ],
     tiers: [
-      { name: "Single Stage Coating", body: "A solid choice for paint that is already in good shape. We prep and decontaminate, then apply one layer of certified ceramic coating for strong gloss, hydrophobic protection, and UV defense. A clean, lasting upgrade over wax." },
-      { name: "Multi Layer Coating", body: "Built for owners who want the deepest gloss and longest-lasting protection. We layer the coating for added durability and slickness, ideal for daily drivers fighting Michigan salt and sun or anyone keeping a vehicle for the long haul." },
-      { name: "Correction Plus Coating", body: "The full treatment. We pair paint correction to remove swirls and light scratches with a certified ceramic coating, so the finish is dialed in first and then locked under the polymer. Best for restoring an older finish or protecting a fresh one." },
+      { name: "Single stage coating", body: "A solid choice for paint that is already in good shape. We prep and decontaminate, then apply one layer of certified ceramic coating for strong gloss, hydrophobic protection, and UV defense. A clean, lasting upgrade over wax." },
+      { name: "Multi layer coating", body: "Built for owners who want the deepest gloss and longest-lasting protection. We layer the coating for added durability and slickness, ideal for daily drivers fighting Michigan salt and sun or anyone keeping a vehicle for the long haul." },
+      { name: "Correction plus coating", body: "The full treatment. We pair paint correction to remove swirls and light scratches with a certified ceramic coating, so the finish is dialed in first and then locked under the polymer. Best for restoring an older finish or protecting a fresh one." },
     ],
   },
   "marine-rv": {
     id: "marine-rv",
-    name: "Marine & RV Detailing",
+    name: "Marine & RV detailing",
     href: "/marine-rv-detailing",
-    image: "/services/marine-rv.jpg",
+    image: "/photos/boat-hull.webp",
     icon: "Ship",
     oneLine: "Full exterior and interior detailing for boats and RVs, with gel coat polishing, oxidation removal, and protective sealants built for Michigan water and weather.",
     heroSubtitle: "Boat and RV detailing in St. Clair Shores, serving Macomb County at our shop or at your slip, storage lot, or driveway. Gel coat polishing, oxidation removal, deep interior cleaning, and protective sealants that hold up to Michigan summers and storage.",
@@ -535,8 +533,8 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       "Dedicated specialty care for chrome, stainless steel, and aluminum, the trim that shows wear first",
     ],
     tiers: [
-      { name: "Single-Stage Protection", body: "A wash, polish, and protective sealant to bring back shine and lock it in. A strong fit for gel coat that is in decent shape and just needs correction and a season of protection." },
-      { name: "Multi-Stage Restoration", body: "For boats and RVs with heavier oxidation and weathering. Multiple cut and polish stages to pull the gel coat back as far as it will go, followed by sealant. We confirm the right level after we see the unit in person." },
+      { name: "Single-stage protection", body: "A wash, polish, and protective sealant to bring back shine and lock it in. A strong fit for gel coat that is in decent shape and just needs correction and a season of protection." },
+      { name: "Multi-stage restoration", body: "For boats and RVs with heavier oxidation and weathering. Multiple cut and polish stages to pull the gel coat back as far as it will go, followed by sealant. We confirm the right level after we see the unit in person." },
     ],
   },
 };
@@ -550,33 +548,60 @@ export const SERVICE_ORDER = [
 ] as const;
 
 // ---------------- GALLERY ----------------
+// Captions describe only what is visible in the photo. They never claim which service was performed.
+export interface WorkPhoto {
+  src: string;
+  alt: string;
+  caption: string;
+  w: number;
+  h: number;
+}
+
+export const WORK: WorkPhoto[] = [
+  { src: "/photos/shop-gt3.webp", alt: "Silver Porsche 911 GT3 under hexagonal ceiling lights in the Bubbles Auto Spa studio", caption: "Porsche 911 GT3, in the studio", w: 1125, h: 2000 },
+  { src: "/photos/amg-front.webp", alt: "White Mercedes-AMG coupe with black wheels, freshly detailed in a driveway", caption: "Mercedes-AMG coupe", w: 1600, h: 1200 },
+  { src: "/photos/g90-front.webp", alt: "White Genesis G90 sedan with a wet-look finish parked on a residential street", caption: "Genesis G90", w: 1200, h: 1600 },
+  { src: "/photos/tesla-interior.webp", alt: "Tesla Model Y interior with black seats and clean floor mats", caption: "Tesla interior", w: 1200, h: 1600 },
+  { src: "/photos/wagoneer.webp", alt: "Black Jeep Grand Wagoneer with water beading on the paint in a driveway", caption: "Grand Wagoneer, water beading", w: 1200, h: 1600 },
+  { src: "/photos/boat-hull.webp", alt: "Navy and white cabin cruiser hull on blocks with a polished gel coat", caption: "Cabin cruiser hull", w: 1600, h: 1200 },
+  { src: "/photos/gwagon.webp", alt: "Black Mercedes G-Class with a deep gloss finish in a shaded driveway", caption: "Mercedes G-Class", w: 1600, h: 1496 },
+  { src: "/photos/gwagon-dash.webp", alt: "Mercedes G-Class dashboard and red leather seats, cleaned and conditioned", caption: "G-Class, red leather", w: 1600, h: 1200 },
+  { src: "/photos/rv-side.webp", alt: "Travel trailer RV with a clean white and grey exterior under a bright sky", caption: "Travel trailer", w: 1600, h: 1200 },
+  { src: "/photos/gv70.webp", alt: "Grey Genesis GV70 with a glossy finish in a tree-lined driveway", caption: "Genesis GV70", w: 1200, h: 1600 },
+  { src: "/photos/tahoe-interior.webp", alt: "Chevrolet Tahoe interior with tan and black leather seats, cleaned", caption: "Tahoe, tan leather", w: 1200, h: 1600 },
+  { src: "/photos/amg-wide.webp", alt: "White Mercedes-AMG coupe photographed from the front corner in a driveway", caption: "Mercedes-AMG coupe", w: 1600, h: 1200 },
+  { src: "/photos/stelvio.webp", alt: "Dark Alfa Romeo Stelvio with a glossy finish in front of a garage", caption: "Alfa Romeo Stelvio", w: 1600, h: 1200 },
+  { src: "/photos/wheel-michelin.webp", alt: "Close-up of a detailed alloy wheel and dressed Michelin tire", caption: "Wheel and tire", w: 1200, h: 1600 },
+  { src: "/photos/gwagon-seats.webp", alt: "Red quilted leather rear seats inside a Mercedes G-Class", caption: "G-Class rear seats", w: 1200, h: 1600 },
+  { src: "/photos/sierra-ev.webp", alt: "White GMC Sierra EV pickup with a clean finish in a driveway", caption: "GMC Sierra EV", w: 1200, h: 1600 },
+  { src: "/photos/g90-interior.webp", alt: "Genesis G90 front cabin with black leather and protective paper floor mats", caption: "Genesis G90 cabin", w: 1600, h: 1200 },
+  { src: "/photos/boat-bow.webp", alt: "Bow of a navy cabin cruiser on blocks with a bright sky behind it", caption: "Cabin cruiser bow", w: 1600, h: 1200 },
+  { src: "/photos/durango.webp", alt: "White Dodge Durango with black wheels parked beside a brick house", caption: "Dodge Durango", w: 1200, h: 1600 },
+  { src: "/photos/van.webp", alt: "The black Bubbles Auto Spa mobile detailing van parked beside a building", caption: "The mobile van", w: 1200, h: 1600 },
+];
+
+// Real before-and-after pairs from the owner's phone. Order in each pair is verified by eye.
+export interface BeforeAfterPair {
+  id: string;
+  title: string;
+  before: string;
+  after: string;
+  w: number;
+  h: number;
+  alt: string;
+}
+
+export const BEFORE_AFTER: BeforeAfterPair[] = [
+  { id: "cargo", title: "Jeep cargo area", before: "/photos/ba-cargo-before.webp", after: "/photos/ba-cargo-after.webp", w: 1050, h: 1400, alt: "Jeep Wrangler cargo carpet" },
+  { id: "seats", title: "Rear cloth seats", before: "/photos/ba-seats-before.webp", after: "/photos/ba-seats-after.webp", w: 1054, h: 1400, alt: "Rear cloth bench seat and floor" },
+  { id: "trunk", title: "SUV trunk carpet", before: "/photos/ba-trunk-before.webp", after: "/photos/ba-trunk-after.webp", w: 1050, h: 1400, alt: "SUV trunk carpet" },
+  { id: "cabin", title: "Acura front cabin", before: "/photos/ba-cabin-before.webp", after: "/photos/ba-cabin-after.webp", w: 1050, h: 1400, alt: "Acura front cabin with tan leather" },
+];
+
 export const GALLERY = {
-  heading: "Our Detailing Work",
-  intro: "Real results from cars, trucks, boats, and RVs detailed by Bubbles Auto Spa in St. Clair Shores. Drag the slider to see a finished interior, then browse recent work across exterior, interior, paint correction, ceramic coating, and marine.",
-  sub: "See something close to your vehicle? Call (586) 217-0123 for a free quote.",
-  // before/after uses the real Acura interior transformation, full color
-  beforeAfter: {
-    before: "/images/before.jpg",
-    after: "/images/after.jpg",
-    label: "Interior detail",
-    caption: "Acura MDX interior, before and after a full interior detail.",
-  },
-  items: [
-    { image: "/gallery/g11.jpg", title: "Porsche 911 GT3", caption: "Exterior detail in the studio." },
-    { image: "/gallery/g12.jpg", title: "GT3 foam bath", caption: "Hand wash with a full foam treatment." },
-    { image: "/gallery/g13.jpg", title: "Boat gel coat", caption: "Oxidation removal, before and after." },
-    { image: "/gallery/g04.jpg", title: "Jeep Grand Wagoneer", caption: "Water beading on a fresh finish." },
-    { image: "/gallery/g14.jpg", title: "Mobile detailing", caption: "Our rig comes to you across Macomb County." },
-    { image: "/gallery/g01.jpg", title: "Chevy Tahoe Z71", caption: "Exterior detail, glossy finish." },
-    { image: "/gallery/g05.jpg", title: "G-Wagon interior", caption: "Leather cleaned and conditioned." },
-    { image: "/gallery/g02.jpg", title: "Genesis GV70", caption: "Exterior detail." },
-    { image: "/gallery/g03.jpg", title: "Mercedes-AMG C43", caption: "Exterior detail." },
-    { image: "/gallery/g06.jpg", title: "Genesis interior", caption: "Interior detail." },
-    { image: "/gallery/g15.jpg", title: "Alfa Romeo Stelvio", caption: "Exterior detail." },
-    { image: "/gallery/g07.jpg", title: "Tesla interior", caption: "Interior detail." },
-    { image: "/gallery/g08.jpg", title: "Travel trailer RV", caption: "Marine and RV detailing." },
-    { image: "/gallery/g10.jpg", title: "Cabin cruiser", caption: "Marine detailing, gel coat and hull." },
-  ],
+  heading: "The work, as it actually happens",
+  intro: "Real vehicles in real driveways and in our St. Clair Shores studio. Nothing here is staged. Toggle the before-and-after pairs, then scroll the recent work.",
+  sub: "See something close to your vehicle? Call (586) 217-0123 for a quote.",
 } as const;
 
 // ---------------- ABOUT ----------------
@@ -601,9 +626,9 @@ export const QUOTE = {
   heading: "Build your detailing quote",
   intro: "Four quick steps. Tell us about your vehicle and the service you want, share your contact info, and review before you send. We will follow up to confirm pricing and a time.",
   reassurance: "No payment now and no obligation. Pricing is a custom quote per vehicle, since a sedan, a work truck, an RV, and a boat all take different amounts of work.",
-  trustMicro: "Shop drop-off in St. Clair Shores or mobile service to your door · Certified Nasiol, 3M, and 3D",
-  submit: "Send My Quote Request",
-  success: "Got it. We will reach out from (586) 217-0123 to confirm your quote and schedule. For anything urgent, call or text us anytime.",
+  trustMicro: "Shop drop-off in St. Clair Shores or mobile service to your door. Certified Nasiol, 3M and 3D.",
+  submit: "Send quote request",
+  success: "We will reach out from (586) 217-0123 to confirm your quote and a time. For anything urgent, call or text us anytime.",
   error: "Something went wrong sending your request. Please try again, or call us at (586) 217-0123.",
   steps: {
     vehicle: { header: "Your vehicle", helper: "Car, truck, SUV, RV, or boat. This helps us size the job and quote it accurately." },
@@ -756,6 +781,69 @@ export const CITIES: City[] = [
 
 export const BUSINESS_DESCRIPTION =
   "Bubbles Auto Spa, LLC is an auto detailing company based in St. Clair Shores, Michigan, serving Macomb County and the surrounding metro Detroit area. Operating from a shop at 23525 Little Mack Ave, the business also offers mobile detailing that comes to the customer. Services include exterior detailing, interior detailing, paint correction, ceramic coating, and marine and RV detailing, with every job quoted per vehicle. The team is certified through Nasiol, 3M, and 3D.";
+
+
+// ---------------- TWO WAYS (shop vs mobile) ----------------
+export const TWO_WAYS = {
+  heading: "Drop it at the shop. Or do not leave the house.",
+  lede: "Same people, same products, same standard. The only difference is where the vehicle sits.",
+  shop: {
+    title: "The shop on Little Mack",
+    body: "A dedicated studio at 23525 Little Mack Ave in St. Clair Shores with controlled lighting and a clean floor. Paint correction and ceramic coating are done here, where we can see every panel properly.",
+    photo: "/photos/shop-gt3.webp",
+    alt: "Porsche 911 GT3 under the hexagonal lights inside the Bubbles Auto Spa studio in St. Clair Shores",
+    w: 1125,
+    h: 2000,
+  },
+  mobile: {
+    title: "Our rig, your driveway",
+    body: "The van and trailer carry water, power and everything else we need. We come to homes, offices and marinas across Macomb County, and you do not rearrange your day.",
+    photo: "/photos/trailer.webp",
+    alt: "The white Bubbles Auto Spa trailer lettered with the phone number and We Come To You",
+    w: 1600,
+    h: 1203,
+  },
+} as const;
+
+// ---------------- SERVICES INDEX (home) ----------------
+export const SERVICES_INDEX = {
+  heading: "Five things we do well",
+  lede: "Every job is sized and quoted for your vehicle. Pick one, or let us put the right combination together.",
+} as const;
+
+// ---------------- MARINE BAND ----------------
+export const MARINE_BAND = {
+  heading: "A lake town needs a boat detailer.",
+  body: "St. Clair Shores sits on Lake St. Clair, so a lot of what we do has a hull. Gel coat polishing, oxidation removal and protective sealants for boats, plus full exterior and interior work on RVs before the trip or before storage.",
+  cta: "See marine and RV detailing",
+  photo: "/photos/boat-side.webp",
+  alt: "The hull of a navy cabin cruiser on blocks, polished, with a ladder leaning against it",
+  w: 1600,
+  h: 1200,
+} as const;
+
+// ---------------- SPEC SHEET ----------------
+export const SPEC_SHEET = {
+  heading: "The shop, on paper",
+  rows: [
+    { label: "Business", value: "Bubbles Auto Spa, LLC" },
+    { label: "Shop", value: "23525 Little Mack Ave, St. Clair Shores, MI 48080" },
+    { label: "Mobile coverage", value: "Macomb County: St. Clair Shores, Sterling Heights, Warren, Clinton Township, Shelby Township, Roseville, Harrison Township, Chesterfield" },
+    { label: "Certifications", value: "Nasiol ceramic coatings, 3M and 3D professional products" },
+    { label: "Vehicles", value: "Cars, trucks, SUVs, motorcycles, boats and RVs" },
+    { label: "Services", value: "Exterior detailing, interior detailing, paint correction, ceramic coating, marine and RV detailing" },
+    { label: "Pricing", value: "Custom quote per vehicle, based on size and condition" },
+    { label: "Booking", value: "Call or text (586) 217-0123, or send a quote request online" },
+    { label: "Hours", value: "Open 24 hours. Call or text anytime." },
+  ],
+} as const;
+
+// ---------------- WORK SECTION (home) ----------------
+export const WORK_SECTION = {
+  heading: "Real vehicles, real driveways.",
+  lede: "Photos from recent jobs, taken on a phone the day the work was done. The before-and-after pairs are from the same vehicle, same day.",
+  cta: "See the full gallery",
+} as const;
 
 // ---------------- Web3Forms (client-side submit) ----------------
 // Set NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY to the Bubbles Auto Spa Web3Forms key

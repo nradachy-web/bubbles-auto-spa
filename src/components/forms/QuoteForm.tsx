@@ -1,27 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { Check, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  BRAND,
-  QUOTE,
-  SERVICE_OPTIONS,
-  SERVICE_MODES,
-  VEHICLE_TYPES,
-  WEB3FORMS_KEY,
-} from "@/lib/constants";
+import { BRAND, QUOTE, SERVICE_OPTIONS, SERVICE_MODES, VEHICLE_TYPES, WEB3FORMS_KEY } from "@/lib/constants";
 import VehicleTypePicker from "./VehicleTypePicker";
 
 const STEPS = ["Vehicle", "Services", "Contact", "Review"] as const;
+const LAST = STEPS.length - 1;
 
-const variants = {
-  enter: (d: number) => ({ x: d > 0 ? 50 : -50, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (d: number) => ({ x: d > 0 ? -50 : 50, opacity: 0 }),
-};
+type Contact = { name: string; phone: string; email: string; notes: string };
+type ContactKey = keyof Contact;
 
 function captureUtm(): Record<string, string> | null {
   if (typeof window === "undefined") return null;
@@ -35,10 +24,14 @@ function captureUtm(): Record<string, string> | null {
   return Object.keys(out).length ? out : null;
 }
 
+/**
+ * Four steps: vehicle, services, contact, review. Plain white panel on a
+ * hairline. Steps switch in place, no animation. Sends through Web3Forms
+ * when a key is configured, then routes to /thank-you.
+ */
 export default function QuoteForm() {
   const router = useRouter();
   const [step, setStep] = useState(0);
-  const [dir, setDir] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -46,11 +39,31 @@ export default function QuoteForm() {
   const [vehicleInfo, setVehicleInfo] = useState("");
   const [services, setServices] = useState<string[]>([]);
   const [mode, setMode] = useState<string>("shop");
-  const [contact, setContact] = useState({ name: "", phone: "", email: "", notes: "" });
+  const [contact, setContact] = useState<Contact>({ name: "", phone: "", email: "", notes: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const toggleService = (id: string) =>
+  const clearError = (key: string) =>
+    setErrors((e) => {
+      if (!e[key]) return e;
+      const rest = { ...e };
+      delete rest[key];
+      return rest;
+    });
+
+  const pickVehicle = (id: string) => {
+    setVehicleType(id);
+    clearError("vehicle");
+  };
+
+  const toggleService = (id: string) => {
     setServices((p) => (p.includes(id) ? p.filter((s) => s !== id) : [...p, id]));
+    clearError("services");
+  };
+
+  const setField = (key: ContactKey, value: string) => {
+    setContact((c) => ({ ...c, [key]: value }));
+    clearError(key);
+  };
 
   const validate = (): boolean => {
     const e: Record<string, string> = {};
@@ -66,14 +79,11 @@ export default function QuoteForm() {
   };
 
   const next = () => {
-    if (validate()) {
-      setDir(1);
-      setStep((s) => Math.min(s + 1, STEPS.length - 1));
-    }
+    if (validate()) setStep((s) => Math.min(s + 1, LAST));
   };
-  const back = () => {
-    setDir(-1);
-    setStep((s) => Math.max(s - 1, 0));
+  const back = () => setStep((s) => Math.max(s - 1, 0));
+  const goTo = (i: number) => {
+    if (i < step) setStep(i);
   };
 
   const vehicleLabel = VEHICLE_TYPES.find((v) => v.id === vehicleType)?.label ?? "";
@@ -132,284 +142,287 @@ export default function QuoteForm() {
     }
   };
 
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (submitting) return;
+    if (step < LAST) next();
+    else void submit();
+  };
+
+  const reviewRows = [
+    { label: "Vehicle", value: vehicleStr || vehicleLabel },
+    { label: "Services", value: serviceLabels.join(", ") },
+    { label: "Shop or mobile", value: modeLabel },
+    { label: "Name", value: contact.name },
+    { label: "Phone", value: contact.phone },
+    { label: "Email", value: contact.email },
+    { label: "Notes", value: contact.notes },
+  ].filter((r) => r.value);
+
   return (
-    <div className="glass-strong relative overflow-hidden rounded-3xl p-5 sm:p-8">
-      {/* progress */}
-      <div className="mb-7">
-        <div className="mb-2 flex justify-between">
-          {STEPS.map((label, i) => (
-            <button
-              key={label}
-              onClick={() => i < step && (setDir(-1), setStep(i))}
-              className={cn(
-                "text-[0.7rem] font-semibold uppercase tracking-[0.12em] transition-colors",
-                i <= step ? "text-blue" : "text-chrome",
-                i < step && "cursor-pointer hover:text-sky"
+    <form onSubmit={onSubmit} noValidate className="rounded-panel border hairline bg-white p-6 sm:p-8">
+      {/* step indicator */}
+      <ol className="flex items-center justify-between gap-3" aria-label="Quote steps">
+        {STEPS.map((label, i) => {
+          const current = i === step;
+          const done = i < step;
+          return (
+            <li key={label} className="t-small">
+              {done ? (
+                <button type="button" onClick={() => goTo(i)} className="text-steel transition-colors hover:text-ink">
+                  {label}
+                </button>
+              ) : (
+                <span aria-current={current ? "step" : undefined} className={current ? "text-ink" : "text-steel"}>
+                  {label}
+                </span>
               )}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-        <div className="h-1.5 overflow-hidden rounded-pill bg-mist">
-          <motion.div
-            className="h-full rounded-pill bg-gradient-to-r from-sky to-blue"
-            initial={false}
-            animate={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          />
-        </div>
+            </li>
+          );
+        })}
+      </ol>
+      <div className="mt-3 h-0.5 bg-concrete" aria-hidden>
+        <div className="h-full bg-blue transition-[width] duration-300" style={{ width: `${((step + 1) / STEPS.length) * 100}%` }} />
       </div>
+      <p className="sr-only" aria-live="polite">
+        Step {step + 1} of {STEPS.length}: {STEPS[step]}
+      </p>
 
-      <div className="relative min-h-[340px] overflow-hidden">
-        <AnimatePresence mode="wait" custom={dir}>
-          <motion.div
-            key={step}
-            custom={dir}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {step === 0 && (
-              <div className="space-y-5">
-                <div>
-                  <h3 className="font-display text-xl text-ink">{QUOTE.steps.vehicle.header}</h3>
-                  <p className="mt-1 text-sm text-slate">{QUOTE.steps.vehicle.helper}</p>
-                </div>
-                <VehicleTypePicker value={vehicleType} onChange={setVehicleType} />
-                {errors.vehicle && <p className="text-sm text-[#d6453f]">{errors.vehicle}</p>}
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-slate">
-                    Year, make, and model <span className="text-chrome">(optional)</span>
-                  </label>
-                  <input
-                    className="field"
-                    value={vehicleInfo}
-                    onChange={(e) => setVehicleInfo(e.target.value)}
-                    placeholder="e.g. 2021 Jeep Grand Wagoneer, black"
-                  />
-                </div>
-              </div>
+      {/* step body */}
+      <div className="mt-8 min-h-[300px]">
+        {step === 0 && (
+          <div className="space-y-6">
+            <div>
+              <h3 className="t-h3">{QUOTE.steps.vehicle.header}</h3>
+              <p className="t-body muted mt-2">{QUOTE.steps.vehicle.helper}</p>
+            </div>
+            <VehicleTypePicker value={vehicleType} onChange={pickVehicle} />
+            {errors.vehicle && (
+              <p className="error-text t-caption" role="alert">
+                {errors.vehicle}
+              </p>
             )}
+            <div>
+              <label htmlFor="quote-vehicle-info" className="t-small mb-2 block">
+                Year, make and model <span className="muted">(optional)</span>
+              </label>
+              <input
+                id="quote-vehicle-info"
+                name="vehicle"
+                className="field"
+                value={vehicleInfo}
+                onChange={(e) => setVehicleInfo(e.target.value)}
+                placeholder="e.g. 2021 Jeep Grand Wagoneer, black"
+              />
+            </div>
+          </div>
+        )}
 
-            {step === 1 && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-display text-xl text-ink">{QUOTE.steps.services.header}</h3>
-                  <p className="mt-1 text-sm text-slate">{QUOTE.steps.services.helper}</p>
-                </div>
-                {errors.services && <p className="text-sm text-[#d6453f]">{errors.services}</p>}
-                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                  {SERVICE_OPTIONS.map((o) => {
-                    const sel = services.includes(o.id);
-                    return (
-                      <button
-                        key={o.id}
-                        type="button"
-                        onClick={() => toggleService(o.id)}
+        {step === 1 && (
+          <div className="space-y-6">
+            <div>
+              <h3 className="t-h3">{QUOTE.steps.services.header}</h3>
+              <p className="t-body muted mt-2">{QUOTE.steps.services.helper}</p>
+            </div>
+            <div role="group" aria-label="Services">
+              <div className="grid gap-2.5 sm:grid-cols-2">
+                {SERVICE_OPTIONS.map((o) => {
+                  const selected = services.includes(o.id);
+                  return (
+                    <button key={o.id} type="button" onClick={() => toggleService(o.id)} aria-pressed={selected} className="tile">
+                      <span
+                        aria-hidden
                         className={cn(
-                          "flex items-center gap-3 rounded-xl border p-3.5 text-left transition-all",
-                          sel
-                            ? "border-blue bg-blue/[0.08]"
-                            : "border-[var(--glass-light-border)] bg-paper hover:border-blue/50"
+                          "grid h-[18px] w-[18px] flex-none place-items-center rounded-[3px] border",
+                          selected ? "border-blue bg-blue text-white" : "border-steel/50"
                         )}
                       >
-                        <span
-                          className={cn(
-                            "grid h-5 w-5 shrink-0 place-items-center rounded-md border",
-                            sel ? "border-blue bg-blue" : "border-chrome"
-                          )}
-                        >
-                          {sel && <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />}
-                        </span>
-                        <span className={cn("text-sm font-medium", sel ? "text-ink" : "text-slate")}>
-                          {o.label}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-                <div>
-                  <p className="mb-2 text-sm font-medium text-slate">Where would you like it done?</p>
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {SERVICE_MODES.map((m) => {
-                      const sel = mode === m.id;
-                      return (
-                        <button
-                          key={m.id}
-                          type="button"
-                          onClick={() => setMode(m.id)}
-                          className={cn(
-                            "rounded-xl border p-3 text-sm font-medium transition-all",
-                            sel
-                              ? "border-blue bg-blue text-white"
-                              : "border-[var(--glass-light-border)] bg-paper text-slate hover:border-blue/50"
-                          )}
-                        >
-                          {m.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
+                        {selected && (
+                          <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                            <path d="M2 6.2 4.8 9 10 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        )}
+                      </span>
+                      <span className="t-small">{o.label}</span>
+                    </button>
+                  );
+                })}
               </div>
-            )}
-
-            {step === 2 && (
-              <div className="space-y-5">
-                <div>
-                  <h3 className="font-display text-xl text-ink">{QUOTE.steps.contact.header}</h3>
-                  <p className="mt-1 text-sm text-slate">{QUOTE.steps.contact.helper}</p>
-                </div>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className="mb-1.5 block text-sm font-medium text-slate">Name *</label>
-                    <input
-                      className={cn("field", errors.name && "border-[#d6453f]")}
-                      value={contact.name}
-                      onChange={(e) => setContact((c) => ({ ...c, name: e.target.value }))}
-                      placeholder="Your name"
-                    />
-                    {errors.name && <p className="mt-1 text-xs text-[#d6453f]">{errors.name}</p>}
-                  </div>
-                  <div>
-                    <label className="mb-1.5 block text-sm font-medium text-slate">Phone *</label>
-                    <input
-                      className={cn("field", errors.phone && "border-[#d6453f]")}
-                      type="tel"
-                      value={contact.phone}
-                      onChange={(e) => setContact((c) => ({ ...c, phone: e.target.value }))}
-                      placeholder="(586) 555-0123"
-                    />
-                    {errors.phone && <p className="mt-1 text-xs text-[#d6453f]">{errors.phone}</p>}
-                  </div>
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-slate">
-                    Email <span className="text-chrome">(optional)</span>
-                  </label>
-                  <input
-                    className={cn("field", errors.email && "border-[#d6453f]")}
-                    type="email"
-                    value={contact.email}
-                    onChange={(e) => setContact((c) => ({ ...c, email: e.target.value }))}
-                    placeholder="you@email.com"
-                  />
-                  {errors.email && <p className="mt-1 text-xs text-[#d6453f]">{errors.email}</p>}
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-slate">
-                    Anything we should know? <span className="text-chrome">(optional)</span>
-                  </label>
-                  <textarea
-                    className="field resize-none"
-                    rows={3}
-                    value={contact.notes}
-                    onChange={(e) => setContact((c) => ({ ...c, notes: e.target.value }))}
-                    placeholder="Condition, timeline, specific concerns, where the boat or RV is stored, anything helpful."
-                  />
-                </div>
+              {errors.services && (
+                <p className="error-text t-caption mt-3" role="alert">
+                  {errors.services}
+                </p>
+              )}
+            </div>
+            <div>
+              <p id="quote-mode-label" className="t-small mb-2">
+                Where would you like it done?
+              </p>
+              <div className="grid grid-cols-2 gap-2.5" role="group" aria-labelledby="quote-mode-label">
+                {SERVICE_MODES.map((m) => (
+                  <button key={m.id} type="button" onClick={() => setMode(m.id)} aria-pressed={mode === m.id} className="tile">
+                    <span className="t-small">{m.label}</span>
+                  </button>
+                ))}
               </div>
-            )}
+            </div>
+          </div>
+        )}
 
-            {step === 3 && (
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-display text-xl text-ink">{QUOTE.steps.review.header}</h3>
-                  <p className="mt-1 text-sm text-slate">{QUOTE.steps.review.helper}</p>
-                </div>
-                <div className="space-y-2.5">
-                  <ReviewRow label="Vehicle" value={vehicleStr || vehicleLabel} />
-                  <ReviewRow label="Services" value={serviceLabels.join(", ")} />
-                  <ReviewRow label="Preference" value={modeLabel} />
-                  <ReviewRow label="Name" value={contact.name} />
-                  <ReviewRow label="Phone" value={contact.phone} />
-                  {contact.email && <ReviewRow label="Email" value={contact.email} />}
-                  {contact.notes && <ReviewRow label="Notes" value={contact.notes} />}
-                </div>
-                <div className="flex items-start gap-3 rounded-xl border border-blue/25 bg-blue/[0.06] px-4 py-3">
-                  <Phone className="mt-0.5 h-4 w-4 shrink-0 text-blue" aria-hidden />
-                  <p className="text-sm leading-relaxed text-ink">
-                    After you send this,{" "}
-                    <span className="font-semibold text-blue">
-                      we will reach out from {BRAND.phoneDisplay}
-                    </span>{" "}
-                    to confirm your quote and a time. Keep an eye out for that number.
+        {step === 2 && (
+          <div className="space-y-6">
+            <div>
+              <h3 className="t-h3">{QUOTE.steps.contact.header}</h3>
+              <p className="t-body muted mt-2">{QUOTE.steps.contact.helper}</p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label htmlFor="quote-name" className="t-small mb-2 block">
+                  Name
+                </label>
+                <input
+                  id="quote-name"
+                  name="name"
+                  autoComplete="name"
+                  className={cn("field", errors.name && "field-error")}
+                  value={contact.name}
+                  onChange={(e) => setField("name", e.target.value)}
+                  placeholder="Your name"
+                  aria-invalid={errors.name ? true : undefined}
+                  aria-describedby={errors.name ? "quote-name-error" : undefined}
+                />
+                {errors.name && (
+                  <p id="quote-name-error" className="error-text t-caption mt-1.5">
+                    {errors.name}
                   </p>
-                </div>
-                <p className="text-xs text-chrome">{QUOTE.trustMicro}</p>
+                )}
               </div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+              <div>
+                <label htmlFor="quote-phone" className="t-small mb-2 block">
+                  Phone
+                </label>
+                <input
+                  id="quote-phone"
+                  name="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  className={cn("field", errors.phone && "field-error")}
+                  value={contact.phone}
+                  onChange={(e) => setField("phone", e.target.value)}
+                  placeholder="(586) 555-0123"
+                  aria-invalid={errors.phone ? true : undefined}
+                  aria-describedby={errors.phone ? "quote-phone-error" : undefined}
+                />
+                {errors.phone && (
+                  <p id="quote-phone-error" className="error-text t-caption mt-1.5">
+                    {errors.phone}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div>
+              <label htmlFor="quote-email" className="t-small mb-2 block">
+                Email <span className="muted">(optional)</span>
+              </label>
+              <input
+                id="quote-email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                className={cn("field", errors.email && "field-error")}
+                value={contact.email}
+                onChange={(e) => setField("email", e.target.value)}
+                placeholder="you@email.com"
+                aria-invalid={errors.email ? true : undefined}
+                aria-describedby={errors.email ? "quote-email-error" : undefined}
+              />
+              {errors.email && (
+                <p id="quote-email-error" className="error-text t-caption mt-1.5">
+                  {errors.email}
+                </p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="quote-notes" className="t-small mb-2 block">
+                Anything we should know? <span className="muted">(optional)</span>
+              </label>
+              <textarea
+                id="quote-notes"
+                name="notes"
+                className="field"
+                rows={3}
+                value={contact.notes}
+                onChange={(e) => setField("notes", e.target.value)}
+                placeholder="Condition, timeline, specific concerns, where the boat or RV is stored, anything helpful."
+              />
+            </div>
+          </div>
+        )}
+
+        {step === 3 && (
+          <div className="space-y-6">
+            <div>
+              <h3 className="t-h3">{QUOTE.steps.review.header}</h3>
+              <p className="t-body muted mt-2">{QUOTE.steps.review.helper}</p>
+            </div>
+            <dl className="ledger">
+              {reviewRows.map((r) => (
+                <div key={r.label} className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr] sm:gap-6">
+                  <dt className="t-small muted">{r.label}</dt>
+                  <dd className="t-body break-words">{r.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <div>
+              <p className="t-small">
+                After you send this, we will reach out from <span className="t-num">{BRAND.phoneDisplay}</span> to confirm your quote and
+                a time. Keep an eye out for that number.
+              </p>
+              <p className="t-caption muted mt-3">{QUOTE.trustMicro}</p>
+            </div>
+          </div>
+        )}
       </div>
 
       {submitError && (
-        <p className="mt-4 rounded-xl border border-[#d6453f]/40 bg-[#d6453f]/10 px-4 py-3 text-sm text-[#b23a35]">
+        <p className="error-text t-small mt-6" role="alert">
           {submitError}{" "}
-          <a href={`tel:${BRAND.phoneTel}`} className="font-semibold underline">
-            Call {BRAND.phoneDisplay}
+          <a href={`tel:${BRAND.phoneTel}`} className="underline underline-offset-[3px]">
+            Call <span className="t-num">{BRAND.phoneDisplay}</span>
           </a>
         </p>
       )}
 
-      <div className="mt-7 flex items-center justify-between gap-4">
+      {/* actions */}
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
         {step > 0 ? (
-          <button
-            onClick={back}
-            className="rounded-pill border border-[var(--glass-light-border)] px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-blue hover:text-blue"
-          >
+          <button type="button" onClick={back} className="btn btn-outline">
             Back
           </button>
         ) : (
-          <a
-            href={`tel:${BRAND.phoneTel}`}
-            className="inline-flex items-center gap-2 text-sm text-slate transition-colors hover:text-blue"
-          >
-            <Phone className="h-4 w-4" /> Prefer to call? {BRAND.phoneDisplay}
+          <a href={`tel:${BRAND.phoneTel}`} className="btn btn-text">
+            Call <span className="t-num">{BRAND.phoneDisplay}</span>
           </a>
         )}
 
-        {step < STEPS.length - 1 ? (
-          <button
-            onClick={next}
-            className="liquid rounded-pill bg-blue px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(26,115,209,0.5)]"
-          >
-            <span className="relative z-[1]">Continue</span>
+        {step < LAST ? (
+          <button type="submit" className="btn btn-solid">
+            Continue
           </button>
         ) : (
-          <button
-            onClick={submit}
-            disabled={submitting}
-            className={cn(
-              "liquid rounded-pill bg-blue px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(26,115,209,0.5)]",
-              submitting && "opacity-60"
+          <button type="submit" disabled={submitting} className="btn btn-solid">
+            {submitting ? (
+              <>
+                {/* the one circle on the site: a 16px border spinner */}
+                <span aria-hidden className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                Sending
+              </>
+            ) : (
+              QUOTE.submit
             )}
-          >
-            <span className="relative z-[1] flex items-center gap-2">
-              {submitting ? (
-                <>
-                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                  Sending...
-                </>
-              ) : (
-                QUOTE.submit
-              )}
-            </span>
           </button>
         )}
       </div>
-    </div>
-  );
-}
-
-function ReviewRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex items-start justify-between gap-4 rounded-xl border border-[var(--hairline-col)] bg-foam/60 px-4 py-3">
-      <span className="text-xs font-semibold uppercase tracking-[0.12em] text-chrome">{label}</span>
-      <span className="text-right text-sm text-ink">{value}</span>
-    </div>
+    </form>
   );
 }

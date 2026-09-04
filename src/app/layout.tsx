@@ -1,30 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Hanken_Grotesk } from "next/font/google";
+import { Archivo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import StickyCallBar from "@/components/layout/StickyCallBar";
-import ScrollProgress from "@/components/fx/ScrollProgress";
 import { BRAND, SEO, SITE_URL, SERVICES, BUSINESS_DESCRIPTION } from "@/lib/constants";
 
-const display = Fraunces({
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-display-raw",
-  display: "swap",
-});
-
-const body = Hanken_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-body-raw",
+  weight: "variable",
+  axes: ["wdth"],
+  style: ["normal"],
+  variable: "--font-archivo",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: SEO.home.title },
+  title: { default: SEO.home.title, template: "%s" },
   description: SEO.home.description,
   keywords: [
     "auto detailing St. Clair Shores",
@@ -57,7 +50,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4f8fb",
+  themeColor: "#000000",
   width: "device-width",
   initialScale: 1,
 };
@@ -67,10 +60,12 @@ const localBusinessJsonLd = {
   "@type": "AutoWash",
   "@id": `${SITE_URL}/#business`,
   name: BRAND.legalName,
+  alternateName: BRAND.name,
   description: BUSINESS_DESCRIPTION,
-  image: `${SITE_URL}/og-image.jpg`,
   url: SITE_URL,
   telephone: BRAND.phoneTel,
+  image: `${SITE_URL}/og-image.jpg`,
+  logo: `${SITE_URL}/logo.png`,
   priceRange: "$$",
   address: {
     "@type": "PostalAddress",
@@ -82,38 +77,33 @@ const localBusinessJsonLd = {
   },
   geo: { "@type": "GeoCoordinates", latitude: 42.4956, longitude: -82.889 },
   areaServed: BRAND.serviceArea.map((name) => ({ "@type": "City", name })),
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-      opens: "00:00",
-      closes: "23:59",
-    },
-  ],
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    opens: "00:00",
+    closes: "23:59",
+  },
   sameAs: [BRAND.social.instagram, BRAND.social.facebook],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Detailing Services",
+    name: "Detailing services",
     itemListElement: SERVICES.map((s) => ({
       "@type": "Offer",
-      itemOffered: { "@type": "Service", name: s.name },
+      itemOffered: { "@type": "Service", name: s.name, url: `${SITE_URL}${s.href}` },
     })),
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
-      <body className="min-h-screen bg-foam text-slate antialiased overflow-x-hidden">
+    <html lang="en" className={archivo.variable}>
+      <body className="on-white">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
-        <ScrollProgress />
         <Navbar />
-        <main>{children}</main>
+        <main id="main">{children}</main>
         <Footer />
         <StickyCallBar />
       </body>
