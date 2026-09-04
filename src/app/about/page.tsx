@@ -4,14 +4,14 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import SpecSheet from "@/components/sections/SpecSheet";
 import CTABanner from "@/components/sections/CTABanner";
 import { ABOUT, SEO } from "@/lib/constants";
+import { pageMeta } from "@/lib/seo";
+import FoamEdge from "@/components/fx/FoamEdge";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: SEO.about.title,
   description: SEO.about.description,
-  alternates: { canonical: "/about" },
-  openGraph: { type: "website", url: "/about", title: SEO.about.title, description: SEO.about.description },
-  twitter: { title: SEO.about.title, description: SEO.about.description },
-};
+  path: "/about",
+});
 
 /**
  * About. Black intro, the story on white in the editorial split, a full-width
@@ -26,6 +26,8 @@ export default function AboutPage() {
           <SectionHeading as="h1" title={<span id="about-title">{ABOUT.heading}</span>} lede={ABOUT.subheading} />
         </div>
       </section>
+
+      <FoamEdge />
 
       {/* story */}
       <section className="on-white section" aria-labelledby="story-title">
@@ -56,6 +58,7 @@ export default function AboutPage() {
       </div>
 
       <SpecSheet heading="The facts" />
+      <FoamEdge />
 
       {/* what we do */}
       <section className="on-white section" aria-labelledby="pillars-title">

@@ -12,6 +12,10 @@ const LAST = STEPS.length - 1;
 type Contact = { name: string; phone: string; email: string; notes: string };
 type ContactKey = keyof Contact;
 
+// Contact inputs in visual order. Their ids are `quote-${key}`; used to move
+// focus to the first invalid field when the contact step fails validation.
+const CONTACT_FIELD_ORDER: ContactKey[] = ["name", "phone", "email"];
+
 function captureUtm(): Record<string, string> | null {
   if (typeof window === "undefined") return null;
   const p = new URLSearchParams(window.location.search);
@@ -26,8 +30,10 @@ function captureUtm(): Record<string, string> | null {
 
 /**
  * Four steps: vehicle, services, contact, review. Plain white panel on a
- * hairline. Steps switch in place, no animation. Sends through Web3Forms
- * when a key is configured, then routes to /thank-you.
+ * hairline. Steps switch in place, no animation. Sends through Web3Forms and
+ * routes to /thank-you only when the API confirms delivery. Without a real
+ * key it shows the error with the phone fallback instead of a fake success,
+ * so a lead is never silently dropped.
  */
 export default function QuoteForm() {
   const router = useRouter();
@@ -65,7 +71,7 @@ export default function QuoteForm() {
     clearError(key);
   };
 
-  const validate = (): boolean => {
+  const validate = (): Record<string, string> => {
     const e: Record<string, string> = {};
     if (step === 0 && !vehicleType) e.vehicle = "Pick your vehicle type so we can size the job.";
     if (step === 1 && services.length === 0) e.services = "Pick at least one service.";
@@ -75,11 +81,19 @@ export default function QuoteForm() {
       if (contact.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) e.email = "That email looks off.";
     }
     setErrors(e);
-    return Object.keys(e).length === 0;
+    return e;
   };
 
   const next = () => {
-    if (validate()) setStep((s) => Math.min(s + 1, LAST));
+    const e = validate();
+    if (Object.keys(e).length === 0) {
+      setStep((s) => Math.min(s + 1, LAST));
+      return;
+    }
+    // Move focus to the first invalid contact field so its label and error are
+    // read out. Vehicle and services errors are announced by their role="alert".
+    const firstInvalid = CONTACT_FIELD_ORDER.find((k) => e[k]);
+    if (firstInvalid) document.getElementById(`quote-${firstInvalid}`)?.focus();
   };
   const back = () => setStep((s) => Math.max(s - 1, 0));
   const goTo = (i: number) => {
@@ -111,30 +125,39 @@ export default function QuoteForm() {
       .filter(Boolean)
       .join("\n");
 
-    const hasKey = WEB3FORMS_KEY && !WEB3FORMS_KEY.startsWith("REPLACE");
+    const hasKey = Boolean(WEB3FORMS_KEY) && !WEB3FORMS_KEY.startsWith("REPLACE");
+
+    // Without a real key nothing can deliver the lead. Show the error with the
+    // phone fallback instead of routing to a thank-you page nobody will act on.
+    if (!hasKey) {
+      console.warn("[QuoteForm] WEB3FORMS_KEY not set. Lead not delivered:", message);
+      setSubmitError(QUOTE.error);
+      setSubmitting(false);
+      return;
+    }
 
     try {
-      if (hasKey) {
-        const res = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({
-            access_key: WEB3FORMS_KEY,
-            subject: `New Detailing Quote: ${contact.name} (${vehicleLabel || "vehicle"})`,
-            from_name: "Bubbles Auto Spa Website",
-            name: contact.name,
-            phone: contact.phone,
-            email: contact.email || "no-reply@bubblesautospa.org",
-            vehicle: vehicleStr,
-            services: serviceLabels.join(", "),
-            preference: modeLabel,
-            message,
-          }),
-        });
-        if (!res.ok) throw new Error("send failed");
-      } else if (typeof window !== "undefined") {
-        console.warn("[QuoteForm] WEB3FORMS_KEY not set. Lead not delivered:", message);
-      }
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `New Detailing Quote: ${contact.name} (${vehicleLabel || "vehicle"})`,
+          from_name: "Bubbles Auto Spa Website",
+          name: contact.name,
+          phone: contact.phone,
+          // Only send a reply-to when the customer gave one. Never fabricate it.
+          ...(contact.email ? { email: contact.email } : {}),
+          vehicle: vehicleStr,
+          services: serviceLabels.join(", "),
+          preference: modeLabel,
+          message,
+        }),
+      });
+      // Web3Forms can answer 200 with success:false, so the body decides,
+      // not just the status code.
+      const data: { success?: unknown } | null = await res.json().catch(() => null);
+      if (!res.ok || !data || data.success !== true) throw new Error("send failed");
       router.push("/thank-you");
     } catch {
       setSubmitError(QUOTE.error);
@@ -204,7 +227,7 @@ export default function QuoteForm() {
             )}
             <div>
               <label htmlFor="quote-vehicle-info" className="t-small mb-2 block">
-                Year, make and model <span className="muted">(optional)</span>
+                Year, make, and model <span className="muted">(optional)</span>
               </label>
               <input
                 id="quote-vehicle-info"
@@ -234,7 +257,7 @@ export default function QuoteForm() {
                         aria-hidden
                         className={cn(
                           "grid h-[18px] w-[18px] flex-none place-items-center rounded-[3px] border",
-                          selected ? "border-blue bg-blue text-white" : "border-steel/50"
+                          selected ? "border-blue bg-blue text-white" : "border-ink/50"
                         )}
                       >
                         {selected && (
@@ -288,11 +311,12 @@ export default function QuoteForm() {
                   value={contact.name}
                   onChange={(e) => setField("name", e.target.value)}
                   placeholder="Your name"
+                  aria-required="true"
                   aria-invalid={errors.name ? true : undefined}
                   aria-describedby={errors.name ? "quote-name-error" : undefined}
                 />
                 {errors.name && (
-                  <p id="quote-name-error" className="error-text t-caption mt-1.5">
+                  <p id="quote-name-error" className="error-text t-caption mt-1.5" role="alert">
                     {errors.name}
                   </p>
                 )}
@@ -309,12 +333,13 @@ export default function QuoteForm() {
                   className={cn("field", errors.phone && "field-error")}
                   value={contact.phone}
                   onChange={(e) => setField("phone", e.target.value)}
-                  placeholder="(586) 555-0123"
+                  placeholder="Best number to reach you"
+                  aria-required="true"
                   aria-invalid={errors.phone ? true : undefined}
                   aria-describedby={errors.phone ? "quote-phone-error" : undefined}
                 />
                 {errors.phone && (
-                  <p id="quote-phone-error" className="error-text t-caption mt-1.5">
+                  <p id="quote-phone-error" className="error-text t-caption mt-1.5" role="alert">
                     {errors.phone}
                   </p>
                 )}
@@ -337,7 +362,7 @@ export default function QuoteForm() {
                 aria-describedby={errors.email ? "quote-email-error" : undefined}
               />
               {errors.email && (
-                <p id="quote-email-error" className="error-text t-caption mt-1.5">
+                <p id="quote-email-error" className="error-text t-caption mt-1.5" role="alert">
                   {errors.email}
                 </p>
               )}

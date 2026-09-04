@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BRAND, NAV_LINKS, CTA } from "@/lib/constants";
@@ -18,6 +18,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -26,19 +28,86 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  // Close the menu when the route changes. Adjusting state during render on a
+  // prop change is the React-sanctioned pattern (no setState inside an effect).
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    if (open) setOpen(false);
+  }
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+
+    const header = headerRef.current;
+
+    // Everything behind the open menu is inert: no clicks, no focus, hidden from AT.
+    // The header (wordmark + hamburger + menu) stays live and is the focus trap. Tab
+    // order inside it follows the DOM: wordmark, hamburger, menu links, quote button,
+    // phone link. Shift+Tab from the wordmark wraps to the phone link and Tab from the
+    // phone link wraps to the wordmark. The wordmark stays in the trap on purpose: it is
+    // visible while the menu is open and closes it on click. The route announcer is a
+    // live region and stays live so navigation is still announced.
+    const inerted: Element[] = [];
+    for (const child of Array.from(document.body.children)) {
+      if (child === header) continue;
+      if (child.tagName === "SCRIPT" || child.tagName === "NEXT-ROUTE-ANNOUNCER") continue;
+      if (child.hasAttribute("inert")) continue;
+      child.setAttribute("inert", "");
+      inerted.push(child);
+    }
+
+    const focusables = () => {
+      if (!header) return [];
+      const nodes = header.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      return Array.from(nodes).filter((el) => el.getClientRects().length > 0);
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setOpen(false);
+        buttonRef.current?.focus();
+        return;
+      }
+      if (e.key !== "Tab" || !header) return;
+      const items = focusables();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+      const outside = !header.contains(active);
+      if (e.shiftKey && (active === first || outside)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (active === last || outside)) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+
+    // If the viewport grows past lg the menu is display:none, so drop the lock and inert.
+    const desktop = window.matchMedia("(min-width: 64rem)");
+    const onDesktop = (e: MediaQueryListEvent) => {
+      if (e.matches) setOpen(false);
+    };
+    desktop.addEventListener("change", onDesktop);
+
     return () => {
       document.documentElement.style.overflow = "";
+      document.removeEventListener("keydown", onKeyDown);
+      desktop.removeEventListener("change", onDesktop);
+      for (const el of inerted) el.removeAttribute("inert");
     };
   }, [open]);
 
   return (
     <header
+      ref={headerRef}
       className={cn(
         "on-black fixed inset-x-0 top-0 z-50 transition-colors duration-300",
         scrolled || open ? "bg-black border-b hairline" : "bg-transparent! border-b border-transparent"
@@ -76,6 +145,7 @@ export default function Navbar() {
             </Link>
           </div>
           <button
+            ref={buttonRef}
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}

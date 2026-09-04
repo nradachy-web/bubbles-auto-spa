@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Suds from "@/components/fx/Suds";
 import { BRAND, CTA, FINAL_CTA } from "@/lib/constants";
 
 interface Props {
@@ -6,11 +7,12 @@ interface Props {
   sub?: string;
 }
 
-/** Final call. The phone number is the biggest thing on the screen. */
+/** Final call. The phone number is the biggest thing on the screen. A few suds drift past it. */
 export default function CTABanner({ heading = FINAL_CTA.heading, sub = FINAL_CTA.sub }: Props) {
   return (
-    <section className="on-black section border-t hairline" aria-labelledby="cta-title">
-      <div className="container grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-12">
+    <section className="on-black section relative overflow-hidden border-t hairline" aria-labelledby="cta-title">
+      <Suds density={1.3} max={12} />
+      <div className="container relative z-10 grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-12">
         <div className="lg:col-span-7">
           <h2 id="cta-title" className="t-display t-h2">
             {heading}

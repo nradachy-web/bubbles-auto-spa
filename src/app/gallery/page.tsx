@@ -4,14 +4,14 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import BeforeAfter from "@/components/sections/BeforeAfter";
 import CTABanner from "@/components/sections/CTABanner";
 import { GALLERY, WORK, BEFORE_AFTER, SEO } from "@/lib/constants";
+import { pageMeta } from "@/lib/seo";
+import FoamEdge from "@/components/fx/FoamEdge";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: SEO.gallery.title,
   description: SEO.gallery.description,
-  alternates: { canonical: "/gallery" },
-  openGraph: { title: SEO.gallery.title, description: SEO.gallery.description, url: "/gallery" },
-  twitter: { title: SEO.gallery.title, description: SEO.gallery.description },
-};
+  path: "/gallery",
+});
 
 /**
  * The full gallery. Black studio for the intro and the real before/after pairs,
@@ -31,7 +31,7 @@ export default function GalleryPage() {
       <section className="on-black section pt-0!" aria-labelledby="pairs-title">
         <div className="container">
           <h2 id="pairs-title" className="t-h3">
-            Before and after, same day
+            Before and after
           </h2>
           <ul className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
             {BEFORE_AFTER.map((pair) => (
@@ -42,6 +42,8 @@ export default function GalleryPage() {
           </ul>
         </div>
       </section>
+
+      <FoamEdge />
 
       {/* recent work */}
       <section className="on-white section" aria-labelledby="recent-title">

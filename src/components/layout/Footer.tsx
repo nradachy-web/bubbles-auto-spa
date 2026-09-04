@@ -11,7 +11,15 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-12">
           <div className="lg:col-span-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={asset("/logo.png")} alt={BRAND.legalName} width={96} height={96} className="h-24 w-24" />
+            <img
+              src={asset("/photos/logo-192.webp")}
+              alt={BRAND.legalName}
+              width={96}
+              height={96}
+              loading="lazy"
+              decoding="async"
+              className="h-24 w-24"
+            />
             <p className="t-body muted mt-5 max-w-xs">
               A certified detailing shop in St. Clair Shores, and a mobile rig that covers Macomb County.
             </p>

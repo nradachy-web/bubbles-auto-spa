@@ -3,14 +3,14 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import QuoteSection from "@/components/sections/QuoteSection";
 import CTABanner from "@/components/sections/CTABanner";
 import { SEO } from "@/lib/constants";
+import { pageMeta } from "@/lib/seo";
+import FoamEdge from "@/components/fx/FoamEdge";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: SEO.contact.title,
   description: SEO.contact.description,
-  alternates: { canonical: "/contact" },
-  openGraph: { title: SEO.contact.title, description: SEO.contact.description, url: "/contact" },
-  twitter: { title: SEO.contact.title, description: SEO.contact.description },
-};
+  path: "/contact",
+});
 
 // Page copy that lives only here. Move to constants.ts (CONTACT_PAGE) if it is reused.
 const CONTACT_PAGE = {
@@ -29,6 +29,7 @@ export default function ContactPage() {
         </div>
       </section>
 
+      <FoamEdge />
       <QuoteSection />
 
       <CTABanner />

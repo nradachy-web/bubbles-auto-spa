@@ -1,9 +1,15 @@
 import Link from "next/link";
 import Photo from "@/components/ui/Photo";
+import Loop from "@/components/ui/Loop";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { TWO_WAYS, BRAND } from "@/lib/constants";
 
-/** Shop vs mobile. Studio photo (portrait) beside the daylight rig photo (landscape). */
+/**
+ * Shop vs mobile. Studio photo (portrait) beside the daylight rig photo (landscape).
+ * The studio photo is a living photo with the site's one deliberate camera move, a slow
+ * push-in toward the GT3 that plays forward then back (see DESIGN.md, Motion). Swap the
+ * Loop for a Photo to retire it.
+ */
 export default function TwoWays() {
   const { shop, mobile } = TWO_WAYS;
   return (
@@ -14,7 +20,14 @@ export default function TwoWays() {
         <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-8">
           {/* shop */}
           <div className="lg:col-span-5">
-            <Photo src={shop.photo} alt={shop.alt} width={shop.w} height={shop.h} className="aspect-[4/5]" />
+            <Loop
+              src="/video/shop-gt3.mp4"
+              poster={shop.photo}
+              alt={shop.alt}
+              width={shop.w}
+              height={shop.h}
+              className="aspect-[4/5]"
+            />
             <h3 className="t-h3 mt-6">{shop.title}</h3>
             <p className="t-body muted mt-3 measure">{shop.body}</p>
             <a href={BRAND.address.mapUrl} target="_blank" rel="noopener noreferrer" className="btn btn-text mt-4">
@@ -35,7 +48,7 @@ export default function TwoWays() {
               ))}
             </ul>
             <Link href="/contact" className="btn btn-text mt-4">
-              Book a mobile detail
+              Get a mobile quote
             </Link>
           </div>
         </div>

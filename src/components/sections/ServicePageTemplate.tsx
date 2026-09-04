@@ -4,6 +4,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import FAQ from "@/components/sections/FAQ";
 import CTABanner from "@/components/sections/CTABanner";
 import { SERVICE_DETAILS, SERVICES, WORK, BRAND, CTA } from "@/lib/constants";
+import FoamEdge from "@/components/fx/FoamEdge";
 
 // Lede under the tiers heading. Every tiered service says the same thing in its own
 // copy (we look first, then recommend). Candidate for constants.ts.
@@ -59,6 +60,8 @@ export default function ServicePageTemplate({ id }: { id: string }) {
           </div>
         </div>
       </section>
+
+      <FoamEdge />
 
       {/* 2) overview */}
       <section className="on-white section" aria-labelledby="overview-title">
@@ -149,6 +152,8 @@ export default function ServicePageTemplate({ id }: { id: string }) {
           </ul>
         </div>
       </section>
+
+      <FoamEdge />
 
       {/* 7) questions */}
       <FAQ items={detail.faqs} heading="Questions about this service" />

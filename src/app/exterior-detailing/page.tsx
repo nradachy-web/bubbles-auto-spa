@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 import { SEO, SITE_URL, BRAND } from "@/lib/constants";
+import { pageMeta, canonicalUrl } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: SEO.exterior.title,
   description: SEO.exterior.description,
-  alternates: { canonical: "/exterior-detailing" },
-  openGraph: { title: SEO.exterior.title, description: SEO.exterior.description, url: "/exterior-detailing" },
-  twitter: { title: SEO.exterior.title, description: SEO.exterior.description },
-};
+  path: "/exterior-detailing",
+});
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -16,9 +15,9 @@ const jsonLd = {
   name: "Exterior Detailing",
   serviceType: "Auto Exterior Detailing",
   description: SEO.exterior.description,
-  url: `${SITE_URL}/exterior-detailing`,
+  url: canonicalUrl("/exterior-detailing"),
   areaServed: BRAND.serviceArea.map((name) => ({ "@type": "City", name })),
-  provider: { "@type": "AutoWash", "@id": `${SITE_URL}/#business`, name: BRAND.legalName, telephone: BRAND.phoneTel, url: SITE_URL },
+  provider: { "@type": "AutoWash", "@id": `${SITE_URL}/#business`, name: BRAND.legalName, telephone: BRAND.phoneTel, url: canonicalUrl("/") },
 };
 
 export default function Page() {

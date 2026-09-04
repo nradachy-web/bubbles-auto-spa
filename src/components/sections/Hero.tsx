@@ -1,36 +1,48 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
+import Loop from "@/components/ui/Loop";
+import Suds from "@/components/fx/Suds";
 import { BRAND, CTA, HERO } from "@/lib/constants";
-import { asset } from "@/lib/asset";
 
 /**
- * Home hero. Black studio, the foam-covered GT3 melting into the page,
- * and the one page-load moment on the site: a foam sheet that rinses off.
+ * Home hero. Black studio, the foam-covered GT3 melting into the page, and the
+ * one page-load moment on the site: a foam sheet that rinses off while the copy
+ * rises into place. The photo quietly comes alive (foam settling) and a few
+ * suds drift up the studio.
  */
+const delay = (s: string) => ({ "--rise-delay": s }) as CSSProperties;
+
 export default function Hero() {
   return (
     <section className="on-black relative overflow-hidden" aria-labelledby="hero-title">
       {/* photo: full-width band on mobile, right column on lg */}
       <div className="relative h-[62svh] min-h-[380px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[54%]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={asset("/photos/hero-foam.webp")}
+        <Loop
+          src="/video/hero-foam.mp4"
+          poster="/photos/hero-foam.webp"
           alt="A Porsche 911 GT3 covered in snow foam under the hexagonal ceiling lights inside the Bubbles Auto Spa studio"
           width={1350}
           height={2400}
-          fetchPriority="high"
-          decoding="sync"
-          className="h-full w-full object-cover object-[52%_50%] hero-mask"
+          priority
+          frame={false}
+          className="h-full w-full"
+          mediaClassName="object-[52%_50%] hero-mask"
         />
       </div>
 
-      {/* copy */}
-      <div className="container relative z-10 flex flex-col justify-end pb-24 pt-8 lg:min-h-[100svh] lg:pb-24 lg:pt-[calc(var(--nav-h)+48px)]">
-        <div className="lg:w-[46%] lg:pr-10">
-          <h1 id="hero-title" className="t-display t-h1 text-white">
+      {/* suds: pushed aside by the pointer, pop on tap. Above the photo, below the copy. */}
+      <Suds className="z-[5]" density={1.6} max={18} />
+
+      {/* copy. lg bottom padding (88px) clears the FoamEdge box below (76px, bubbles near its top) while the whole block still fits 900px at 1440 */}
+      <div className="container relative z-10 flex flex-col justify-end pb-20 pt-8 lg:min-h-[100svh] lg:pb-22 lg:pt-[calc(var(--nav-h)+24px)]">
+        <div className="lg:w-[52%] lg:pr-10">
+          <h1 id="hero-title" className="t-display t-h1 rise text-white" style={delay("0.3s")}>
             {HERO.headline}
           </h1>
-          <p className="t-lede muted mt-6 measure">{HERO.sub}</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <p className="t-lede muted measure rise mt-6" style={delay("0.42s")}>
+            {HERO.sub}
+          </p>
+          <div className="rise mt-7 flex flex-col gap-3 sm:flex-row sm:items-center" style={delay("0.54s")}>
             <Link href="/contact" className="btn btn-solid btn-lg">
               {CTA.primary}
             </Link>
@@ -38,7 +50,9 @@ export default function Hero() {
               Call <span className="t-num">{BRAND.phoneDisplay}</span>
             </a>
           </div>
-          <p className="t-small muted mt-8 max-w-md">{HERO.trust}</p>
+          <p className="t-small muted rise mt-6 max-w-md" style={delay("0.66s")}>
+            {HERO.trust}
+          </p>
         </div>
       </div>
 

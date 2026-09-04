@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BRAND, QUOTE } from "@/lib/constants";
+import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Thank You | Bubbles Auto Spa",
-  description: "Your free quote request was received.",
+  ...pageMeta({
+    title: "Thank You | Bubbles Auto Spa",
+    description: "Your free quote request was received.",
+    path: "/thank-you",
+  }),
   robots: { index: false, follow: false },
 };
 

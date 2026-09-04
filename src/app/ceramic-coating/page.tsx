@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import ServicePageTemplate from "@/components/sections/ServicePageTemplate";
 import { SEO, SITE_URL, BRAND } from "@/lib/constants";
+import { pageMeta, canonicalUrl } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: SEO["ceramic-coating"].title,
   description: SEO["ceramic-coating"].description,
-  alternates: { canonical: "/ceramic-coating" },
-  openGraph: { title: SEO["ceramic-coating"].title, description: SEO["ceramic-coating"].description, url: "/ceramic-coating" },
-  twitter: { title: SEO["ceramic-coating"].title, description: SEO["ceramic-coating"].description },
-};
+  path: "/ceramic-coating",
+});
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -16,9 +15,9 @@ const jsonLd = {
   name: "Ceramic Coating",
   serviceType: "Ceramic Coating",
   description: SEO["ceramic-coating"].description,
-  url: `${SITE_URL}/ceramic-coating`,
+  url: canonicalUrl("/ceramic-coating"),
   areaServed: BRAND.serviceArea.map((name) => ({ "@type": "City", name })),
-  provider: { "@type": "AutoWash", "@id": `${SITE_URL}/#business`, name: BRAND.legalName, telephone: BRAND.phoneTel, url: SITE_URL },
+  provider: { "@type": "AutoWash", "@id": `${SITE_URL}/#business`, name: BRAND.legalName, telephone: BRAND.phoneTel, url: canonicalUrl("/") },
 };
 
 export default function Page() {

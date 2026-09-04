@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BRAND } from "@/lib/constants";
+import { pageMeta } from "@/lib/seo";
 
-/** 404. The one centred page on the site. */
+/** 404. The one centred page on the site. No path, so no canonical and no og:url. */
 export const metadata: Metadata = {
-  title: "Page not found | Bubbles Auto Spa",
+  ...pageMeta({
+    title: "Page not found | Bubbles Auto Spa",
+    description: "That page moved or never existed. The Bubbles Auto Spa home page has everything.",
+  }),
   robots: { index: false, follow: false },
 };
 

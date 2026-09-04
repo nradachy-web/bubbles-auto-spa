@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import StickyCallBar from "@/components/layout/StickyCallBar";
 import { BRAND, SEO, SITE_URL, SERVICES, BUSINESS_DESCRIPTION } from "@/lib/constants";
+import { canonicalUrl } from "@/lib/seo";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -30,7 +31,6 @@ export const metadata: Metadata = {
     "RV detailing Macomb County",
     "Bubbles Auto Spa",
   ],
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -46,7 +46,12 @@ export const metadata: Metadata = {
     description: SEO.home.description,
     images: ["/og-image.jpg"],
   },
-  robots: { index: true, follow: true },
+  // NEXT_PUBLIC_BASE_PATH is set only by the GitHub Pages preview build. That
+  // preview must not be indexed: its canonicals point at bubblesautospa.org,
+  // which still serves the old site. The domain cutover drops
+  // NEXT_PUBLIC_BASE_PATH from deploy.yml and adds public/CNAME, which flips
+  // this back to index: true with no code change. robots.ts mirrors it.
+  robots: { index: !process.env.NEXT_PUBLIC_BASE_PATH, follow: true },
 };
 
 export const viewport: Viewport = {
@@ -62,11 +67,10 @@ const localBusinessJsonLd = {
   name: BRAND.legalName,
   alternateName: BRAND.name,
   description: BUSINESS_DESCRIPTION,
-  url: SITE_URL,
+  url: canonicalUrl("/"),
   telephone: BRAND.phoneTel,
   image: `${SITE_URL}/og-image.jpg`,
   logo: `${SITE_URL}/logo.png`,
-  priceRange: "$$",
   address: {
     "@type": "PostalAddress",
     streetAddress: BRAND.address.street,
@@ -75,7 +79,8 @@ const localBusinessJsonLd = {
     postalCode: BRAND.address.zip,
     addressCountry: "US",
   },
-  geo: { "@type": "GeoCoordinates", latitude: 42.4956, longitude: -82.889 },
+  // The shop: 23525 Little Mack Ave, St. Clair Shores, MI 48080.
+  geo: { "@type": "GeoCoordinates", latitude: 42.4697, longitude: -82.9069 },
   areaServed: BRAND.serviceArea.map((name) => ({ "@type": "City", name })),
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
@@ -89,7 +94,7 @@ const localBusinessJsonLd = {
     name: "Detailing services",
     itemListElement: SERVICES.map((s) => ({
       "@type": "Offer",
-      itemOffered: { "@type": "Service", name: s.name, url: `${SITE_URL}${s.href}` },
+      itemOffered: { "@type": "Service", name: s.name, url: canonicalUrl(s.href) },
     })),
   },
 };
@@ -98,12 +103,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={archivo.variable}>
       <body className="on-white">
+        {/* Skip link. Visually hidden until focused, then a solid button pinned
+            top-left above the fixed nav (z-50) and the hero rinse sheet (z-60).
+            Built from utilities only: the unlayered .btn rules in globals.css
+            would override sr-only, so .btn is not used here. The text colour
+            uses the important form (text-white!) because the unlayered
+            a { color: inherit } reset in globals.css beats a plain layered
+            utility. */}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[70] focus:inline-flex focus:h-12 focus:items-center focus:rounded-[4px] focus:bg-blue focus:px-[22px] focus:text-[15px] focus:font-semibold focus:text-white!"
+        >
+          Skip to content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
         <Navbar />
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1}>
+          {children}
+        </main>
         <Footer />
         <StickyCallBar />
       </body>

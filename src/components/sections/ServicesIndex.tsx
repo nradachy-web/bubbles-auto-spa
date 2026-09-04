@@ -5,21 +5,19 @@ import Link from "next/link";
 import Photo from "@/components/ui/Photo";
 import { asset } from "@/lib/asset";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { SERVICES, SERVICES_INDEX } from "@/lib/constants";
+import { SERVICES, SERVICES_INDEX, WORK } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-const PHOTO_META: Record<string, { w: number; h: number; alt: string }> = {
-  "/photos/amg-front.webp": { w: 1600, h: 1200, alt: "White Mercedes-AMG coupe with black wheels, freshly detailed in a driveway" },
-  "/photos/gwagon-dash.webp": { w: 1600, h: 1200, alt: "Mercedes G-Class dashboard and red leather seats, cleaned and conditioned" },
-  "/photos/g90-front.webp": { w: 1200, h: 1600, alt: "White Genesis G90 sedan with a wet-look finish on a residential street" },
-  "/photos/gwagon.webp": { w: 1600, h: 1496, alt: "Black Mercedes G-Class with a deep gloss finish in a shaded driveway" },
-  "/photos/boat-hull.webp": { w: 1600, h: 1200, alt: "Navy and white cabin cruiser hull on blocks with a polished gel coat" },
-};
-const FALLBACK = { w: 1600, h: 1200, alt: "" };
+/** Alt text and dimensions come from the photo library entry, so nothing is invented here. */
+function photoMeta(src: string, fallbackAlt: string) {
+  const p = WORK.find((w) => w.src === src);
+  return { w: p?.w ?? 1600, h: p?.h ?? 1200, alt: p?.alt ?? fallbackAlt };
+}
 
 /**
  * The services index. Rows on the left, one sticky photo on the right that swaps
- * with the row you hover or focus. Below lg each row carries its own photo.
+ * with the row you hover or focus. Below lg each row carries its own photo,
+ * above the text on phones and beside it from sm.
  */
 export default function ServicesIndex() {
   const [active, setActive] = useState(0);
@@ -32,14 +30,22 @@ export default function ServicesIndex() {
         <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-12">
           <ol className="ledger lg:col-span-7">
             {SERVICES.map((s, i) => {
-              const meta = PHOTO_META[s.image] ?? FALLBACK;
+              const meta = photoMeta(s.image, s.name);
               const isActive = i === active;
               return (
                 <li key={s.id} onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} className="py-7 lg:py-8">
-                  <div className="grid gap-5 sm:grid-cols-[1fr_auto] sm:items-start lg:grid-cols-1">
+                  <div className="grid gap-5 sm:grid-cols-[auto_1fr] sm:items-start lg:grid-cols-1">
+                    {/* per-row photo below lg: first on phones, left column from sm */}
+                    <Photo
+                      src={s.image}
+                      alt={meta.alt}
+                      width={meta.w}
+                      height={meta.h}
+                      className="aspect-[16/10] w-full sm:w-52 lg:hidden"
+                    />
                     <div>
                       <h3 className="t-h3 flex items-baseline gap-4">
-                        <span className={cn("t-num text-[0.9rem] transition-colors", isActive ? "text-blue" : "text-steel")}>
+                        <span aria-hidden="true" className={cn("t-num text-[0.9rem] transition-colors", isActive ? "text-blue" : "text-steel")}>
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <Link href={s.href} className={cn("transition-colors", isActive ? "text-ink" : "text-ink lg:text-steel")}>
@@ -51,26 +57,18 @@ export default function ServicesIndex() {
                         See {s.name.charAt(0).toLowerCase() + s.name.slice(1)}
                       </Link>
                     </div>
-                    {/* per-row photo below lg */}
-                    <Photo
-                      src={s.image}
-                      alt={meta.alt}
-                      width={meta.w}
-                      height={meta.h}
-                      className="aspect-[16/10] w-full sm:w-52 lg:hidden"
-                    />
                   </div>
                 </li>
               );
             })}
           </ol>
 
-          {/* sticky photo column */}
+          {/* sticky photo column. 4:3 to match the library (four of five are landscape). */}
           <div className="hidden lg:col-span-5 lg:block">
             <div className="sticky top-[calc(var(--nav-h)+24px)]">
-              <div className="photo relative aspect-[4/5]">
+              <div className="photo relative aspect-[4/3]">
                 {SERVICES.map((s, i) => {
-                  const meta = PHOTO_META[s.image] ?? FALLBACK;
+                  const meta = photoMeta(s.image, s.name);
                   return (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img

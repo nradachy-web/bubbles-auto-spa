@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL, CITIES } from "@/lib/constants";
+import { CITIES } from "@/lib/constants";
+import { canonicalUrl } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
@@ -20,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return routes.map(({ path, priority }) => ({
-    url: `${SITE_URL}${path === "/" ? "" : path}`,
+    url: canonicalUrl(path),
     lastModified: LAST_MODIFIED,
     changeFrequency: "monthly",
     priority,

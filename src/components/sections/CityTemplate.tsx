@@ -8,6 +8,7 @@ import Work from "@/components/sections/Work";
 import FAQ from "@/components/sections/FAQ";
 import CTABanner from "@/components/sections/CTABanner";
 import { BRAND, CTA, CITIES, type City } from "@/lib/constants";
+import FoamEdge from "@/components/fx/FoamEdge";
 
 // Local copy for the nearby section. Candidate for constants.ts as NEARBY_SECTION.
 const NEARBY = {
@@ -17,11 +18,12 @@ const NEARBY = {
 } as const;
 
 // Hero photo for every city page. Candidate for constants.ts as CITY_HERO.
+// A driveway job, not the trailer: TwoWays already shows the trailer a screen below.
 const CITY_HERO = {
-  photo: "/photos/trailer.webp",
-  alt: "The Bubbles Auto Spa mobile detailing trailer, lettered with the phone number",
+  photo: "/photos/stelvio.webp",
+  alt: "Black Alfa Romeo Stelvio in a residential driveway beside an open garage",
   w: 1600,
-  h: 1203,
+  h: 1200,
 } as const;
 
 /**
@@ -70,6 +72,7 @@ export default function CityTemplate({ city }: { city: City }) {
         </div>
       </section>
 
+      <FoamEdge />
       <TwoWays />
       <ServicesIndex />
 
@@ -113,6 +116,7 @@ export default function CityTemplate({ city }: { city: City }) {
       </section>
 
       <Work limit={8} withPairs={false} />
+      <FoamEdge />
       <FAQ />
       <CTABanner
         heading={`Ready to detail your vehicle in ${city.name}?`}

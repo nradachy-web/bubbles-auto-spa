@@ -1,14 +1,19 @@
 import Link from "next/link";
-import Photo from "@/components/ui/Photo";
+import Loop from "@/components/ui/Loop";
 import { MARINE_BAND } from "@/lib/constants";
 
-/** Full-width daylight band for the lake-town story. */
+/**
+ * Full-width daylight band for the lake-town story. The hull quietly catches the light.
+ * The band follows the black Work section, so it keeps white ground at the top (pt) and
+ * the FoamEdge above it meets white, not the photo. The photo stays full-bleed left and below.
+ */
 export default function MarineBand() {
   return (
-    <section className="on-white" aria-labelledby="marine-title">
+    <section className="on-white pt-14 lg:pt-20" aria-labelledby="marine-title">
       <div className="grid lg:grid-cols-2">
-        <Photo
-          src={MARINE_BAND.photo}
+        <Loop
+          src="/video/boat-side.mp4"
+          poster={MARINE_BAND.photo}
           alt={MARINE_BAND.alt}
           width={MARINE_BAND.w}
           height={MARINE_BAND.h}

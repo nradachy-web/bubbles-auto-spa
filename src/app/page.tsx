@@ -12,6 +12,7 @@ import FAQ from "@/components/sections/FAQ";
 import CTABanner from "@/components/sections/CTABanner";
 
 import { SEO, FAQ as FAQ_ITEMS } from "@/lib/constants";
+import FoamEdge from "@/components/fx/FoamEdge";
 
 export const metadata: Metadata = {
   title: SEO.home.title,
@@ -34,12 +35,15 @@ export default function HomePage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <Hero />
+      <FoamEdge />
       <TwoWays />
       <ServicesIndex />
       <Work />
+      <FoamEdge />
       <MarineBand />
       <Process />
       <SpecSheet />
+      <FoamEdge />
       <QuoteSection />
       <FAQ />
       <CTABanner />

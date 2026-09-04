@@ -83,6 +83,11 @@ button {
 .on-black :focus-visible {
   outline-color: var(--color-bubble);
 }
+/* Skip-link target. tabindex="-1" lets Enter on the link move focus here in
+   every engine; a focus ring around the whole page landmark is not wanted. */
+main:focus {
+  outline: none;
+}
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -247,7 +252,7 @@ button {
 .btn-outline {
   background: transparent;
   color: var(--color-ink);
-  border-color: rgba(17, 20, 23, 0.3);
+  border-color: rgba(17, 20, 23, 0.45);
 }
 .btn-outline:hover {
   border-color: var(--color-ink);
@@ -310,17 +315,17 @@ button {
   height: 48px;
   padding: 0 14px;
   border-radius: var(--radius-ui);
-  border: 1px solid rgba(17, 20, 23, 0.25);
+  border: 1px solid rgba(17, 20, 23, 0.5);
   background: #fff;
   color: var(--color-ink);
   font-size: 16px;
   transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
 }
 .field::placeholder {
-  color: #8c96a0;
+  color: var(--color-steel);
 }
 .field:hover {
-  border-color: rgba(17, 20, 23, 0.5);
+  border-color: rgba(17, 20, 23, 0.55);
 }
 .field:focus {
   outline: none;
@@ -350,7 +355,7 @@ textarea.field {
   min-height: 56px;
   padding: 12px 14px;
   border-radius: var(--radius-ui);
-  border: 1px solid rgba(17, 20, 23, 0.2);
+  border: 1px solid rgba(17, 20, 23, 0.5);
   background: #fff;
   text-align: left;
   transition: border-color 160ms var(--ease-out), background-color 160ms var(--ease-out);
@@ -459,16 +464,44 @@ html {
 
 /* ---------- hero photo blend ---------- */
 .hero-mask {
-  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  /* top fade keeps the transparent nav legible over the lit ceiling; bottom fade melts into the page */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 calc(var(--nav-h) + 40px),
+    #000 62%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to bottom, transparent 0, #000 calc(var(--nav-h) + 40px), #000 62%, transparent 100%);
 }
 @media (min-width: 64rem) {
   .hero-mask {
     -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 22%, #000 100%),
-      linear-gradient(to bottom, #000 80%, transparent 100%);
+      linear-gradient(to bottom, transparent 0, #000 calc(var(--nav-h) + 48px), #000 80%, transparent 100%);
     -webkit-mask-composite: source-in;
     mask-image: linear-gradient(to right, transparent 0%, #000 22%, #000 100%),
-      linear-gradient(to bottom, #000 80%, transparent 100%);
+      linear-gradient(to bottom, transparent 0, #000 calc(var(--nav-h) + 48px), #000 80%, transparent 100%);
     mask-composite: intersect;
+  }
+}
+
+/* ---------- hero copy: rises into place behind the rinse (same load moment) ---------- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.9s var(--ease-out) both;
+  animation-delay: var(--rise-delay, 0.35s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
   }
 }
