@@ -67,7 +67,7 @@ export default function Work({ limit = 8, withPairs = true, withCta = true }: { 
             <h3 className="t-h3">Before and after</h3>
             <ul className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
               {pairs.map((pair) => (
-                <li key={pair.id}>
+                <li key={pair.id} className={pair.aspect === "landscape" ? "col-span-2" : undefined}>
                   <BeforeAfter pair={pair} />
                 </li>
               ))}

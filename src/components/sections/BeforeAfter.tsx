@@ -12,7 +12,7 @@ export default function BeforeAfter({ pair, className }: { pair: BeforeAfterPair
 
   return (
     <figure className={cn("flex flex-col", className)}>
-      <div id={id} className="photo relative aspect-[3/4]">
+      <div id={id} className={cn("photo relative", pair.aspect === "landscape" ? "aspect-[4/3]" : "aspect-[3/4]")}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={asset(pair.before)}

@@ -41,7 +41,7 @@ export default function ServicesIndex() {
                       alt={meta.alt}
                       width={meta.w}
                       height={meta.h}
-                      className="aspect-[16/10] w-full sm:w-52 lg:hidden"
+                      className="aspect-[4/3] w-full sm:aspect-[4/5] sm:w-44 lg:hidden"
                     />
                     <div>
                       <h3 className="t-h3 flex items-baseline gap-4">
@@ -63,10 +63,10 @@ export default function ServicesIndex() {
             })}
           </ol>
 
-          {/* sticky photo column. 4:3 to match the library (four of five are landscape). */}
+          {/* sticky photo column. 4:5 to match the library (four of the five service photos are portrait). */}
           <div className="hidden lg:col-span-5 lg:block">
             <div className="sticky top-[calc(var(--nav-h)+24px)]">
-              <div className="photo relative aspect-[4/3]">
+              <div className="photo relative aspect-[4/5]">
                 {SERVICES.map((s, i) => {
                   const meta = photoMeta(s.image, s.name);
                   return (

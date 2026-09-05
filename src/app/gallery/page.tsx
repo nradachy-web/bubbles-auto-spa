@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Photo from "@/components/ui/Photo";
+import Loop from "@/components/ui/Loop";
 import SectionHeading from "@/components/ui/SectionHeading";
 import BeforeAfter from "@/components/sections/BeforeAfter";
 import CTABanner from "@/components/sections/CTABanner";
-import { GALLERY, WORK, BEFORE_AFTER, SEO } from "@/lib/constants";
+import { GALLERY, WORK, BEFORE_AFTER, SEO, GALLERY_CLIPS } from "@/lib/constants";
 import { pageMeta } from "@/lib/seo";
 import FoamEdge from "@/components/fx/FoamEdge";
 
@@ -35,7 +36,7 @@ export default function GalleryPage() {
           </h2>
           <ul className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
             {BEFORE_AFTER.map((pair) => (
-              <li key={pair.id}>
+              <li key={pair.id} className={pair.aspect === "landscape" ? "col-span-2" : undefined}>
                 <BeforeAfter pair={pair} />
               </li>
             ))}
@@ -53,6 +54,12 @@ export default function GalleryPage() {
           </h2>
           {/* CSS columns keep every photo at its natural aspect with no ragged rows */}
           <ul className="mt-12 columns-2 gap-3 lg:mt-16 lg:columns-3 lg:gap-4">
+            {GALLERY_CLIPS.map((c) => (
+              <li key={c.video} className="mb-3 break-inside-avoid lg:mb-4">
+                <Loop src={c.video} poster={c.poster} alt={c.alt} width={c.w} height={c.h} />
+                <p className="t-caption muted mt-2">{c.caption}</p>
+              </li>
+            ))}
             {WORK.map((p) => (
               <li key={p.src} className="mb-3 break-inside-avoid lg:mb-4">
                 <Photo src={p.src} alt={p.alt} width={p.w} height={p.h} />

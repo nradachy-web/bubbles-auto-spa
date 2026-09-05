@@ -113,7 +113,7 @@ export const SERVICES: Service[] = [
     ],
     priceFraming: "Custom quote per vehicle",
     cta: "See exterior detailing",
-    image: "/photos/amg-front.webp",
+    image: "/photos/svc-exterior.webp",
   },
   {
     id: "interior",
@@ -129,7 +129,7 @@ export const SERVICES: Service[] = [
     ],
     priceFraming: "Custom quote per vehicle",
     cta: "See interior detailing",
-    image: "/photos/gwagon-dash.webp",
+    image: "/photos/svc-interior.webp",
   },
   {
     id: "paint-correction",
@@ -145,7 +145,7 @@ export const SERVICES: Service[] = [
     ],
     priceFraming: "Custom quote per vehicle",
     cta: "See paint correction",
-    image: "/photos/g90-front.webp",
+    image: "/photos/svc-paint.webp",
   },
   {
     id: "ceramic-coating",
@@ -161,7 +161,7 @@ export const SERVICES: Service[] = [
     ],
     priceFraming: "Custom quote per vehicle",
     cta: "See ceramic coating",
-    image: "/photos/gwagon.webp",
+    image: "/photos/svc-ceramic.webp",
     featured: true,
   },
   {
@@ -178,7 +178,7 @@ export const SERVICES: Service[] = [
     ],
     priceFraming: "Custom quote per vehicle",
     cta: "See marine & RV",
-    image: "/photos/boat-hull.webp",
+    image: "/photos/svc-marine.webp",
   },
 ];
 
@@ -327,7 +327,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     id: "exterior",
     name: "Exterior detailing",
     href: "/exterior-detailing",
-    image: "/photos/amg-front.webp",
+    image: "/photos/svc-exterior.webp",
     icon: "CarFront",
     oneLine: "A full hand-wash and decontamination service that pulls road tar, brake dust, and salt off your paint and leaves the whole exterior clean, protected, and sharp.",
     heroSubtitle: "Hand wash, clay bar decontamination, and full exterior cleanup at our St. Clair Shores shop, or at your driveway anywhere in Macomb County.",
@@ -366,7 +366,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     id: "interior",
     name: "Interior detailing",
     href: "/interior-detailing",
-    image: "/photos/gwagon-dash.webp",
+    image: "/photos/svc-interior.webp",
     icon: "Armchair",
     oneLine: "A complete interior reset: vacuumed, shampooed, deep-cleaned, conditioned, and deodorized from the headliner to the trunk.",
     heroSubtitle: "Carpets shampooed, upholstery and leather brought back, pet hair pulled out, and odors gone. At our St. Clair Shores shop or mobile to your driveway anywhere in Macomb County.",
@@ -407,7 +407,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     id: "paint-correction",
     name: "Paint correction",
     href: "/paint-correction",
-    image: "/photos/g90-front.webp",
+    image: "/photos/svc-paint.webp",
     icon: "Sparkles",
     oneLine: "Machine polishing that removes swirl marks, scratches, oxidation, and haze from your clear coat to bring back true gloss and depth.",
     heroSubtitle: "Swirl marks, light scratches, oxidation, and haze cut out of the clear coat with a careful machine polish. One-step and multi-step correction at our St. Clair Shores shop or at your driveway across Macomb County.",
@@ -452,7 +452,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     id: "ceramic-coating",
     name: "Ceramic coating",
     href: "/ceramic-coating",
-    image: "/photos/gwagon.webp",
+    image: "/photos/svc-ceramic.webp",
     icon: "ShieldCheck",
     oneLine: "A liquid polymer that bonds to your clear coat for years of gloss, easy cleaning, and protection from Michigan road salt, UV, and grime.",
     heroSubtitle: "A bonded ceramic layer that locks in gloss and shrugs off salt, sun, and dirt. Applied at our St. Clair Shores shop or at your driveway by certified Nasiol, 3M, and 3D installers.",
@@ -497,7 +497,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     id: "marine-rv",
     name: "Marine & RV detailing",
     href: "/marine-rv-detailing",
-    image: "/photos/boat-hull.webp",
+    image: "/photos/svc-marine.webp",
     icon: "Ship",
     oneLine: "Full exterior and interior detailing for boats and RVs, with gel coat polishing, oxidation removal, and protective sealants built for Michigan water and weather.",
     heroSubtitle: "Boat and RV detailing in St. Clair Shores, serving Macomb County at our shop or at your slip, storage lot, or driveway. Gel coat polishing, oxidation removal, deep interior cleaning, and protective sealants that hold up to Michigan summers and storage.",
@@ -558,17 +558,31 @@ export interface WorkPhoto {
 }
 
 export const WORK: WorkPhoto[] = [
+  // first eight = the home and city mosaic (Work.tsx). Keep the five service-index photos out of these.
   { src: "/photos/shop-gt3.webp", alt: "Silver Porsche 911 GT3 under hexagonal ceiling lights in the Bubbles Auto Spa studio", caption: "Porsche 911 GT3, in the studio", w: 1125, h: 2000 },
+  { src: "/photos/challenger.webp", alt: "Blue Dodge Challenger in the studio with the door open to the street", caption: "Dodge Challenger", w: 1600, h: 1200 },
+  { src: "/photos/red-coupe-studio.webp", alt: "Red sports coupe under the hexagonal lights in the studio", caption: "Red coupe, in the studio", w: 1200, h: 1600 },
   { src: "/photos/amg-front.webp", alt: "White Mercedes-AMG coupe with black wheels in a driveway", caption: "Mercedes-AMG coupe", w: 1600, h: 1200 },
-  { src: "/photos/g90-front.webp", alt: "White Genesis G90 sedan parked on a residential street", caption: "Genesis G90", w: 1200, h: 1600 },
-  { src: "/photos/tesla-interior.webp", alt: "Tesla Model Y interior with black seats and floor mats", caption: "Tesla interior", w: 1200, h: 1600 },
-  { src: "/photos/wagoneer.webp", alt: "Black Jeep Grand Wagoneer with water beading on the paint in a driveway", caption: "Grand Wagoneer, water beading", w: 1200, h: 1600 },
+  { src: "/photos/truck-white-studio.webp", alt: "White Ford Super Duty pickup under the hexagonal lights in the studio", caption: "Super Duty, in the studio", w: 1200, h: 1600 },
   { src: "/photos/boat-hull.webp", alt: "Navy and white cabin cruiser hull on blocks", caption: "Cabin cruiser hull", w: 1600, h: 1200 },
+  { src: "/photos/wagoneer.webp", alt: "Black Jeep Grand Wagoneer with water beading on the paint in a driveway", caption: "Grand Wagoneer, water beading", w: 1200, h: 1600 },
   { src: "/photos/gwagon.webp", alt: "Black Mercedes G-Class in a shaded driveway", caption: "Mercedes G-Class", w: 1600, h: 1496 },
+  // gallery only, from here down
+  { src: "/photos/suv-black-studio.webp", alt: "Black SUV under the hexagonal lights in the studio", caption: "Black SUV, in the studio", w: 1200, h: 1600 },
+  { src: "/photos/merc-interior-red.webp", alt: "Mercedes front cabin with black and red seats and a wide screen", caption: "Mercedes cabin, red trim", w: 1200, h: 1600 },
+  { src: "/photos/g90-front.webp", alt: "White Genesis G90 sedan parked on a residential street", caption: "Genesis G90", w: 1200, h: 1600 },
+  { src: "/photos/boxster.webp", alt: "Grey Porsche Boxster outside the shop on a sunny day", caption: "Porsche Boxster", w: 1200, h: 1600 },
+  { src: "/photos/tesla-interior.webp", alt: "Tesla Model Y interior with black seats and floor mats", caption: "Tesla interior", w: 1200, h: 1600 },
+  { src: "/photos/rv-eagle.webp", alt: "White Jayco Eagle fifth-wheel RV parked on a lawn", caption: "Fifth-wheel RV", w: 1600, h: 1200 },
   { src: "/photos/gwagon-dash.webp", alt: "Mercedes G-Class dashboard and red leather seats", caption: "G-Class, red leather", w: 1600, h: 1200 },
+  { src: "/photos/speedboat.webp", alt: "White speedboat with red stripes on a trailer outside the shop", caption: "Speedboat on the trailer", w: 1085, h: 1450 },
+  { src: "/photos/truck-cabin-grey.webp", alt: "Pickup rear cabin with grey leather seats and a child seat", caption: "Pickup rear cabin", w: 1200, h: 1600 },
   { src: "/photos/rv-side.webp", alt: "White and grey travel trailer RV under a bright sky", caption: "Travel trailer", w: 1600, h: 1200 },
+  { src: "/photos/suv-cargo-clean.webp", alt: "SUV cargo area with the seats folded, looking in from the tailgate", caption: "SUV cargo area", w: 1200, h: 1600 },
   { src: "/photos/gv70.webp", alt: "Grey Genesis GV70 in a tree-lined driveway", caption: "Genesis GV70", w: 1200, h: 1600 },
+  { src: "/photos/rv-north-point.webp", alt: "Fifth-wheel RV beside a house with a ladder against it", caption: "Fifth-wheel RV, roof day", w: 1600, h: 1200 },
   { src: "/photos/tahoe-interior.webp", alt: "Chevrolet Tahoe interior with tan and black leather seats", caption: "Tahoe, tan leather", w: 1200, h: 1600 },
+  { src: "/photos/rv-roof.webp", alt: "The roof of an RV, looking down from a ladder", caption: "RV roof", w: 1200, h: 1600 },
   { src: "/photos/amg-wide.webp", alt: "White Mercedes-AMG coupe photographed from the front corner in a driveway", caption: "Mercedes-AMG coupe", w: 1600, h: 1200 },
   { src: "/photos/stelvio.webp", alt: "Dark Alfa Romeo Stelvio in front of a garage", caption: "Alfa Romeo Stelvio", w: 1600, h: 1200 },
   { src: "/photos/wheel-michelin.webp", alt: "Close-up of an alloy wheel and Michelin tire", caption: "Wheel and tire", w: 1200, h: 1600 },
@@ -578,6 +592,27 @@ export const WORK: WorkPhoto[] = [
   { src: "/photos/boat-bow.webp", alt: "Bow of a navy cabin cruiser on blocks with a bright sky behind it", caption: "Cabin cruiser bow", w: 1600, h: 1200 },
   { src: "/photos/durango.webp", alt: "White Dodge Durango with black wheels parked beside a brick house", caption: "Dodge Durango", w: 1200, h: 1600 },
   { src: "/photos/trailer.webp", alt: "The white Bubbles Auto Spa trailer lettered with the phone number and We Come To You, parked on a driveway", caption: "The mobile trailer", w: 1600, h: 1203 },
+  // the five service-index photos (ServicesIndex and the service page heroes read alt and size from here)
+  { src: "/photos/svc-exterior.webp", alt: "Black Mercedes-AMG under the hexagonal lights in the studio", caption: "Mercedes-AMG, in the studio", w: 1200, h: 1600 },
+  { src: "/photos/svc-interior.webp", alt: "Mercedes front cabin with black leather seats and the steering wheel", caption: "Mercedes cabin", w: 1200, h: 1600 },
+  { src: "/photos/svc-paint.webp", alt: "Black Porsche under the hexagonal lights in the studio, seen from above the hood", caption: "Porsche, in the studio", w: 1200, h: 1600 },
+  { src: "/photos/svc-ceramic.webp", alt: "A gloved hand applying Nasiol ZR53 coating to a Porsche hood in front of the Bubbles Auto Spa sign", caption: "Coating going on", w: 819, h: 1024 },
+  { src: "/photos/svc-marine.webp", alt: "Bow of a white speedboat with red stripes on its trailer, the left half after and the right half before", caption: "Speedboat bow, after and before", w: 1086, h: 1358 },
+];
+
+export interface WorkClip {
+  video: string; // silent mp4 under /public/video, the owner's own phone footage
+  poster: string; // first frame, under /public/photos
+  alt: string;
+  caption: string;
+  w: number;
+  h: number;
+}
+
+/** Real phone clips from the owner, shown in the gallery through the Loop component. */
+export const GALLERY_CLIPS: WorkClip[] = [
+  { video: "/video/clip-hood-water.mp4", poster: "/photos/clip-hood-water.webp", alt: "Water running off the hood of a green Dodge Challenger", caption: "Challenger hood, water beading", w: 720, h: 1222 },
+  { video: "/video/clip-denali-door.mp4", poster: "/photos/clip-denali-door.webp", alt: "The polished door of a black GMC Denali in the studio", caption: "GMC Denali, in the studio", w: 720, h: 1012 },
 ];
 
 // Real before-and-after pairs from the owner's phone. Order in each pair is verified by eye.
@@ -589,6 +624,8 @@ export interface BeforeAfterPair {
   w: number;
   h: number;
   alt: string;
+  /** landscape pairs get a 4:3 frame and span two columns in the gallery grid */
+  aspect?: "portrait" | "landscape";
 }
 
 export const BEFORE_AFTER: BeforeAfterPair[] = [
@@ -596,6 +633,7 @@ export const BEFORE_AFTER: BeforeAfterPair[] = [
   { id: "seats", title: "Rear cloth seats", before: "/photos/ba-seats-before.webp", after: "/photos/ba-seats-after.webp", w: 1054, h: 1400, alt: "Rear cloth bench seat and floor" },
   { id: "trunk", title: "SUV trunk carpet", before: "/photos/ba-trunk-before.webp", after: "/photos/ba-trunk-after.webp", w: 1050, h: 1400, alt: "SUV trunk carpet" },
   { id: "cabin", title: "Acura front cabin", before: "/photos/ba-cabin-before.webp", after: "/photos/ba-cabin-after.webp", w: 1050, h: 1400, alt: "Acura front cabin with tan leather" },
+  { id: "engine", title: "Ram engine bay", before: "/photos/ba-engine-before.webp", after: "/photos/ba-engine-after.webp", w: 1600, h: 1200, alt: "Ram 1500 engine bay", aspect: "landscape" },
 ];
 
 export const GALLERY = {
@@ -798,10 +836,10 @@ export const TWO_WAYS = {
   mobile: {
     title: "Our rig, your driveway",
     body: "The van and trailer carry water, power, and everything else we need. We come to homes, offices, and marinas across Macomb County, and you do not rearrange your day.",
-    photo: "/photos/trailer.webp",
-    alt: "The white Bubbles Auto Spa trailer lettered with the phone number and We Come To You",
-    w: 1600,
-    h: 1203,
+    photo: "/photos/truck-bubbles.webp",
+    alt: "The black Bubbles Auto Spa van, lettered with the name and phone number, parked outside the shop",
+    w: 1200,
+    h: 900,
   },
 } as const;
 
