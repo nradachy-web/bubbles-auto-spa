@@ -37,8 +37,8 @@ export const BRAND = {
   ],
   certs: ["Nasiol", "3M", "3D"],
   social: {
-    instagram: "https://www.instagram.com/bubblesautospa_llc/",
-    instagramHandle: "@bubblesautospa_llc",
+    instagram: "https://www.instagram.com/bubblesautospa_/",
+    instagramHandle: "@bubblesautospa_",
     facebook: "https://www.facebook.com/profile.php?id=61553353739826",
     google: "https://share.google/8nlXeO8ut7QiWSOO4",
   },
