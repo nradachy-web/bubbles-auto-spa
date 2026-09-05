@@ -154,7 +154,7 @@ export const SERVICES: Service[] = [
     icon: "ShieldCheck",
     oneLine: "A bonded ceramic layer that locks in gloss and shrugs off Michigan salt, sun, and grime for years.",
     features: [
-      "Certified Nasiol, 3M, and 3D systems",
+      "Certified Nasiol coating systems",
       "Hydrophobic surface that sheets water away",
       "Deep, long-lasting wet-look gloss",
       "UV and contaminant protection",
@@ -219,7 +219,7 @@ export const WHY_US = {
     {
       icon: "BadgeCheck",
       title: "Certified in Nasiol, 3M, and 3D",
-      body: "We do not guess with off-the-shelf products. Our coatings and paint care run on certified Nasiol, 3M, and 3D systems applied the way they are meant to be applied.",
+      body: "We do not guess with off-the-shelf products. Our ceramic coatings are Nasiol, applied by certified installers, and our paint care runs on 3M and 3D professional products used the way they are meant to be used.",
     },
     {
       icon: "Sparkles",
@@ -258,7 +258,7 @@ export const PROCESS = {
     },
     {
       title: "Protect or coat",
-      body: "We finish with a sealant or apply a certified Nasiol, 3M, or 3D ceramic coating so the work holds up against Michigan salt, sun, and grime.",
+      body: "We finish with a sealant or apply a certified Nasiol ceramic coating so the work holds up against Michigan salt, sun, and grime.",
     },
     {
       title: "Final inspection and handoff",
@@ -289,7 +289,7 @@ export const FAQ = [
   },
   {
     q: "How long does ceramic coating last?",
-    a: "It depends on the product and how the vehicle is maintained, and we will walk you through the options when you call. We are certified through Nasiol, 3M, and 3D, so we apply professional-grade coatings and prep the paint correctly first. A ceramic coating adds a hard, hydrophobic layer that protects the clear coat, makes washing easier, and helps the finish hold its gloss far longer than wax.",
+    a: "It depends on the product and how the vehicle is maintained, and we will walk you through the options when you call. We are certified Nasiol installers, so we apply a professional-grade coating and prep the paint correctly first. A ceramic coating adds a hard, hydrophobic layer that protects the clear coat, makes washing easier, and helps the finish hold its gloss far longer than wax.",
   },
   {
     q: "How do I book, and is the quote free?",
@@ -427,12 +427,12 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       { title: "Wash and decontaminate", body: "The paint is washed and the surface is decontaminated so we are polishing clean paint, not grinding grit into it. This step matters in Michigan where road film, salt, and bonded contaminants build up fast." },
       { title: "Machine polish the correction", body: "We run the correction with a machine polisher, pads, and compound matched to your paint. A one-step is a single refining pass. A multi-step starts with compounding to cut heavier defects, then polishes to bring the finish back to a clean gloss." },
       { title: "Wipe down and inspect", body: "We wipe the panels down and check the results in proper lighting to confirm the swirls, scratches, and haze we targeted are gone and the finish is even across the vehicle." },
-      { title: "Protect or coat the fresh paint", body: "Corrected paint is bare and ready for protection. We can finish with a sealant or set you up for a ceramic coating so the work lasts, and we are certified with Nasiol, 3M, and 3D for coatings." },
+      { title: "Protect or coat the fresh paint", body: "Corrected paint is bare and ready for protection. We can finish with a sealant or set you up for a ceramic coating so the work lasts, and we are certified Nasiol installers for coatings." },
     ],
     faqs: [
       { q: "What is the difference between a one-step and a multi-step correction?", a: "A one-step is a single polishing pass that removes lighter swirls, oxidation, and haze, and it suits newer or well-maintained paint. A multi-step adds a compounding stage first to cut heavier or deeper defects, then follows with polishing to refine the finish. We look at your clear coat and tell you which one your car actually needs." },
       { q: "Will paint correction remove every scratch?", a: "It removes the defects that sit within the clear coat, which covers most swirl marks, light scratches, water spots, and oxidation. A scratch you can catch with a fingernail has usually gone past the clear coat into the paint or primer, and that needs touch-up or refinishing rather than polishing. We will tell you straight which of your marks will come out and which will not." },
-      { q: "Should I get a ceramic coating after correction?", a: "It is a great pairing. Correction leaves the paint at its best and bare, so it is the ideal time to lock in that finish. We can apply a sealant or a ceramic coating to protect the work, and we are certified with Nasiol, 3M, and 3D. It is not required, but it is the smart way to make the correction last." },
+      { q: "Should I get a ceramic coating after correction?", a: "It is a great pairing. Correction leaves the paint at its best and bare, so it is the ideal time to lock in that finish. We can apply a sealant or a Nasiol ceramic coating to protect the work, and we are certified Nasiol installers. It is not required, but it is the smart way to make the correction last." },
       { q: "Can you do paint correction at my house?", a: "Yes. Bubbles Auto Spa runs both a shop on Little Mack Ave in St. Clair Shores and a mobile service across Macomb County, so we can correct your paint at the shop or in your driveway. Call (586) 217-0123 and we will set up whichever works for you and quote the job for your vehicle." },
     ],
     whyUs: [
@@ -454,11 +454,11 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     image: "/photos/svc-ceramic.webp",
     icon: "ShieldCheck",
     oneLine: "A liquid polymer that bonds to your clear coat for years of gloss, easy cleaning, and protection from Michigan road salt, UV, and grime.",
-    heroSubtitle: "A bonded ceramic layer that locks in gloss and shrugs off salt, sun, and dirt. Applied at our St. Clair Shores shop or at your driveway by certified Nasiol, 3M, and 3D installers.",
+    heroSubtitle: "A bonded ceramic layer that locks in gloss and shrugs off salt, sun, and dirt. Applied at our St. Clair Shores shop or at your driveway by certified Nasiol installers.",
     longDescription: [
       "Wax and spray sealants sit on top of your paint and wash away in a month or two. A ceramic coating is different. It is a liquid polymer that chemically bonds to the clear coat and becomes part of the surface, so the protection lasts far longer than anything you spray on at a car wash. Once it cures, the paint feels slick, water beads up and rolls off, and the everyday grime that used to stick has a much harder time holding on.",
       "That matters a lot in this part of Michigan. Between road salt in the winter, sand and gravel in spring, and full sun baking your hood all summer, paint around St. Clair Shores takes a beating. The hydrophobic layer means salty slush sheets off instead of sitting on the finish, and the UV protection slows the fading and oxidation that turns a deep color chalky over a few seasons. Washing gets easier too, because most of the dirt rinses away instead of needing to be scrubbed.",
-      "We are certified in Nasiol, 3M, and 3D coatings, so we match the product to your paint and how you drive instead of forcing one bottle onto every car. We do the work at our shop on Little Mack, or we bring it to your driveway if that is easier. Daily driver, weekend truck, RV, or boat, we will tell you straight what the coating will and will not do before we book anything.",
+      "We are certified Nasiol installers, so we match the Nasiol product to your paint and how you drive instead of forcing one bottle onto every car. We do the work at our shop on Little Mack, or we bring it to your driveway if that is easier. Daily driver, weekend truck, RV, or boat, we will tell you straight what the coating will and will not do before we book anything.",
     ],
     benefits: [
       "Less time washing, because road salt and grime rinse off instead of caking onto the paint",
@@ -470,7 +470,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     process: [
       { title: "Quote and walkthrough", body: "Call (586) 217-0123 and tell us the vehicle, the color, and how you use it. We look at the paint, talk through which coating package fits, and give you a custom quote. No guessing over the phone on price." },
       { title: "Decontaminate and prep", body: "A coating is only as good as the surface under it. We wash, clay, and clean the paint so the polymer bonds to bare clear coat, not to dirt or old wax. Any paint correction you choose happens at this stage." },
-      { title: "Apply the certified coating", body: "We hand-apply the Nasiol, 3M, or 3D coating panel by panel and level it correctly so it bonds evenly. This is where certification and patience pay off." },
+      { title: "Apply the certified coating", body: "We hand-apply the Nasiol coating panel by panel and level it correctly so it bonds evenly. This is where certification and patience pay off." },
       { title: "Cure and inspect", body: "The coating needs time to cure before it gets wet. We inspect every panel under proper lighting, then walk you through how to wash and care for the finish so it lasts." },
     ],
     faqs: [
@@ -480,7 +480,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       { q: "Can you coat my truck, RV, or boat, and do you come to me?", a: "Yes. We coat cars, trucks, RVs, and marine, and we work either at our shop at 23525 Little Mack Ave in St. Clair Shores or mobile at your location across Macomb County. Call (586) 217-0123 and we will figure out what fits best." },
     ],
     whyUs: [
-      "Certified in Nasiol, 3M, and 3D, so we pick the right coating for your paint instead of selling one bottle to every car",
+      "Certified Nasiol installers, so we pick the right Nasiol coating for your paint instead of selling one bottle to every car",
       "Shop and mobile service, so you can drop the vehicle at Little Mack or have us come to your driveway",
       "We coat cars, trucks, RVs, and marine, not just daily drivers",
       "Honest about what a coating can and cannot do before you spend a dollar",
@@ -653,7 +653,7 @@ export const ABOUT = {
   pillars: [
     { icon: "CarFront", title: "Exterior detailing", body: "Thorough wash, decontamination, and finishing that brings out the paint and clears off road grime and buildup." },
     { icon: "Armchair", title: "Interior detailing", body: "Seats, carpets, panels, and glass cleaned and conditioned so the inside feels as good as the outside looks." },
-    { icon: "Layers", title: "Paint correction and coating", body: "Swirl and defect removal followed by certified Nasiol, 3M, and 3D ceramic coating for a deep, protected finish." },
+    { icon: "Layers", title: "Paint correction and coating", body: "Swirl and defect removal followed by certified Nasiol ceramic coating for a deep, protected finish." },
     { icon: "Anchor", title: "Marine & RV", body: "Boats and RVs get the same certified care, sized to the rig and quoted per vehicle." },
   ],
 } as const;
@@ -700,7 +700,7 @@ export const SEO: Record<string, { title: string; description: string }> = {
   "ceramic-coating": {
     title: "Ceramic Coating St. Clair Shores, MI | Bubbles Auto Spa",
     description:
-      "Certified Nasiol, 3M, and 3D ceramic coating in St. Clair Shores and Macomb County. Long-lasting paint protection and gloss. Call (586) 217-0123.",
+      "Certified Nasiol ceramic coating in St. Clair Shores and Macomb County. Long-lasting paint protection and gloss. Call (586) 217-0123.",
   },
   "marine-rv": {
     title: "Marine & RV Detailing St. Clair Shores | Bubbles Auto Spa",

@@ -1,5 +1,6 @@
 import SectionHeading from "@/components/ui/SectionHeading";
 import { SPEC_SHEET, BRAND } from "@/lib/constants";
+import { REVIEWS } from "@/lib/reviews";
 
 /** Facts only, laid out like a window sticker. Hairline rows carry the structure. */
 export default function SpecSheet({ heading = SPEC_SHEET.heading }: { heading?: string }) {
@@ -17,7 +18,7 @@ export default function SpecSheet({ heading = SPEC_SHEET.heading }: { heading?: 
           </p>
         </div>
         <dl className="ledger lg:col-span-7 lg:col-start-6">
-          {SPEC_SHEET.rows.map((r) => (
+          {[...SPEC_SHEET.rows, { label: "Reviews", value: `${REVIEWS.rating.toFixed(1)} on Google from ${REVIEWS.count} reviews` }].map((r) => (
             <div key={r.label} className="grid gap-1 py-4 sm:grid-cols-[11rem_1fr] sm:gap-6 lg:py-5">
               <dt className="t-small muted">{r.label}</dt>
               <dd className="t-body text-white">{r.value}</dd>

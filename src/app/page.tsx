@@ -6,6 +6,7 @@ import ServicesIndex from "@/components/sections/ServicesIndex";
 import Work from "@/components/sections/Work";
 import MarineBand from "@/components/sections/MarineBand";
 import Process from "@/components/sections/Process";
+import Reviews from "@/components/sections/Reviews";
 import SpecSheet from "@/components/sections/SpecSheet";
 import QuoteSection from "@/components/sections/QuoteSection";
 import FAQ from "@/components/sections/FAQ";
@@ -42,6 +43,7 @@ export default function HomePage() {
       <FoamEdge />
       <MarineBand />
       <Process />
+      <Reviews />
       <SpecSheet />
       <FoamEdge />
       <QuoteSection />

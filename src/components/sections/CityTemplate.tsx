@@ -5,6 +5,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import TwoWays from "@/components/sections/TwoWays";
 import ServicesIndex from "@/components/sections/ServicesIndex";
 import Work from "@/components/sections/Work";
+import Reviews from "@/components/sections/Reviews";
 import FAQ from "@/components/sections/FAQ";
 import CTABanner from "@/components/sections/CTABanner";
 import { BRAND, CTA, CITIES, type City } from "@/lib/constants";
@@ -114,6 +115,8 @@ export default function CityTemplate({ city }: { city: City }) {
           </div>
         </div>
       </section>
+
+      <Reviews limit={3} />
 
       <Work limit={8} withPairs={false} />
       <FoamEdge />
