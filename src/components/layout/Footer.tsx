@@ -61,7 +61,7 @@ export default function Footer() {
 
           <div className="lg:col-span-3">
             <h2 className="t-small text-white">Where we work</h2>
-            <p className="t-body muted mt-4">Based in St. Clair Shores, serving {BRAND.county}.</p>
+            <p className="t-body muted mt-4">Based in St. Clair Shores, serving {BRAND.county} and the Woodward corridor.</p>
             <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
               {CITIES.map((c) => (
                 <li key={c.slug}>

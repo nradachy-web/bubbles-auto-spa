@@ -34,6 +34,14 @@ export const BRAND = {
     "Roseville",
     "Harrison Township",
     "Chesterfield",
+    "Royal Oak",
+    "Huntington Woods",
+    "Pleasant Ridge",
+    "Beverly Hills",
+    "Birmingham",
+    "Bloomfield Township",
+    "Bloomfield Hills",
+    "Franklin",
   ],
   certs: ["Nasiol", "3M", "3D"],
   social: {
@@ -65,14 +73,14 @@ export const NAV_LINKS = [
 // ---------------- HERO ----------------
 export const HERO = {
   headline: "Auto detailing under our lights, or in your driveway.",
-  sub: "Bubbles Auto Spa is a certified detailing shop on Little Mack in St. Clair Shores, with a mobile rig that covers Macomb County. Interiors, exteriors, paint correction, ceramic coating, boats, and RVs.",
+  sub: "Bubbles Auto Spa is a certified detailing shop on Little Mack in St. Clair Shores, with a mobile rig that covers Macomb County and the Woodward corridor. Interiors, exteriors, paint correction, ceramic coating, boats, and RVs.",
   trust: "Certified in Nasiol, 3M, and 3D products. Cars, trucks, SUVs, motorcycles, boats, and RVs, quoted per vehicle.",
 } as const;
 
 // ---------------- STATS / quick facts ----------------
 export const STATS = [
   { value: "2 Ways", label: "Drop off at the shop or we come to you" },
-  { value: "Macomb County", label: "Served from our St. Clair Shores base" },
+  { value: "Macomb + Woodward", label: "Mobile from St. Clair Shores to Bloomfield Hills" },
   { value: "Nasiol, 3M, 3D", label: "Certified coating and care products" },
   { value: "Cars to Boats", label: "Cars, trucks, RVs, and marine" },
 ] as const;
@@ -281,7 +289,7 @@ export const FAQ = [
   },
   {
     q: "What areas do you serve?",
-    a: "We are based in St. Clair Shores and cover Macomb County and the surrounding area, including Sterling Heights, Warren, Clinton Township, Shelby Township, Roseville, Harrison Township, and Chesterfield. If you are nearby and do not see your city listed, call (586) 217-0123 and ask.",
+    a: "We are based in St. Clair Shores and cover Macomb County, including Sterling Heights, Warren, Clinton Township, Shelby Township, Roseville, Harrison Township, and Chesterfield. The mobile rig also runs the Woodward corridor in Oakland County: Royal Oak, Huntington Woods, Pleasant Ridge, Beverly Hills, Birmingham, Bloomfield Township, Bloomfield Hills, and Franklin. If you are nearby and do not see your city listed, call (586) 217-0123 and ask.",
   },
   {
     q: "What services do you offer?",
@@ -680,7 +688,7 @@ export const SEO: Record<string, { title: string; description: string }> = {
   home: {
     title: "Bubbles Auto Spa | Auto Detailing in St. Clair Shores, MI",
     description:
-      "Shop and mobile auto detailing in St. Clair Shores and Macomb County. Exterior, interior, paint correction, and ceramic coating. Call (586) 217-0123.",
+      "Shop and mobile auto detailing in St. Clair Shores, Macomb County, and the Woodward corridor. Exterior, interior, paint correction, and ceramic coating. Call (586) 217-0123.",
   },
   exterior: {
     title: "Exterior Detailing St. Clair Shores | Bubbles Auto Spa",
@@ -817,7 +825,7 @@ export const CITIES: City[] = [
 ];
 
 export const BUSINESS_DESCRIPTION =
-  "Bubbles Auto Spa, LLC is an auto detailing company based in St. Clair Shores, Michigan, serving Macomb County and the surrounding metro Detroit area. Operating from a shop at 23525 Little Mack Ave, the business also offers mobile detailing that comes to the customer. Services include exterior detailing, interior detailing, paint correction, ceramic coating, and marine and RV detailing, with every job quoted per vehicle. The team is certified through Nasiol, 3M, and 3D.";
+  "Bubbles Auto Spa, LLC is an auto detailing company based in St. Clair Shores, Michigan, serving Macomb County and the Woodward corridor in Oakland County, plus the surrounding metro Detroit area. Operating from a shop at 23525 Little Mack Ave, the business also offers mobile detailing that comes to the customer. Services include exterior detailing, interior detailing, paint correction, ceramic coating, and marine and RV detailing, with every job quoted per vehicle. The team is certified through Nasiol, 3M, and 3D.";
 
 
 // ---------------- TWO WAYS (shop vs mobile) ----------------
@@ -834,7 +842,7 @@ export const TWO_WAYS = {
   },
   mobile: {
     title: "Our rig, your driveway",
-    body: "The van and trailer carry water, power, and everything else we need. We come to homes, offices, and marinas across Macomb County, and you do not rearrange your day.",
+    body: "The van and trailer carry water, power, and everything else we need. We come to homes, offices, and marinas across Macomb County and up the Woodward corridor, Royal Oak through Birmingham to Bloomfield Hills, and you do not rearrange your day.",
     photo: "/photos/truck-bubbles.webp",
     alt: "The black Bubbles Auto Spa van, lettered with the name and phone number, parked outside the shop",
     w: 1200,
@@ -866,6 +874,7 @@ export const SPEC_SHEET = {
     { label: "Business", value: "Bubbles Auto Spa, LLC" },
     { label: "Shop", value: "23525 Little Mack Ave, St. Clair Shores, MI 48080" },
     { label: "Mobile coverage", value: "Macomb County: St. Clair Shores, Sterling Heights, Warren, Clinton Township, Shelby Township, Roseville, Harrison Township, Chesterfield" },
+    { label: "Woodward corridor", value: "Royal Oak, Huntington Woods, Pleasant Ridge, Beverly Hills, Birmingham, Bloomfield Township, Bloomfield Hills, Franklin" },
     { label: "Certifications", value: "Nasiol ceramic coatings, 3M professional products, and 3D detailing chemicals" },
     { label: "Vehicles", value: "Cars, trucks, SUVs, motorcycles, boats, and RVs" },
     { label: "Services", value: "Exterior detailing, interior detailing, paint correction, ceramic coating, and marine and RV detailing" },
