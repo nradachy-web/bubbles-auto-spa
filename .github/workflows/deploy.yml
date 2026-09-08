@@ -34,9 +34,9 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ vars.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY }}
-          # Preview on the GitHub Pages project page. For the real domain cutover:
-          # drop this line and add public/CNAME with bubblesautospa.org.
-          NEXT_PUBLIC_BASE_PATH: "/bubbles-auto-spa"
+          # Root build for the custom domain (public/CNAME = bubblesautospa.org).
+          # To rebuild the old project-page preview instead, set
+          # NEXT_PUBLIC_BASE_PATH: "/bubbles-auto-spa" here and remove public/CNAME.
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
